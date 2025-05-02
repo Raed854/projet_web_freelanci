@@ -4,7 +4,7 @@
 
 @section('stylesheets')
     @parent
-    <link rel="stylesheet" href="{{ public('css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
 @endsection
@@ -21,7 +21,7 @@
 
     <header class="section__container header__container">
         <h1 class="section__header">Là où les idées se rencontrent Investissements & Compétences</h1>
-        <img src="{{public('photo/ttt.jpg') }}" alt="header" />
+        <img src="{{asset('image/ttt.jpg') }}" alt="header" />
     </header>
 
     <section class="section__container plan__container">
@@ -49,9 +49,9 @@
                 </p>
             </div>
             <div class="plan__image">
-                <img src="{{public('photo/left-infos.jpg') }}" alt="plan" />
-                <img src="{{public('photo/happyclient-01.jpg') }}" alt="plan" />
-                <img src="{{public('photo/banner-right.png') }}" alt="plan" />
+                <img src="{{asset('image/left-infos.jpg') }}" alt="plan" />
+                <img src="{{asset('image/happyclient-01.jpg') }}" alt="plan" />
+                <img src="{{asset('image/banner-right.png') }}" alt="plan" />
             </div>
         </div>
     </section>
@@ -92,8 +92,8 @@
 
     <section class="section__container lounge__container">
         <div class="lounge__image">
-            <img src="{{public('photo/img.png') }}" alt="lounge" />
-            <img src="{{public('photo/happyclient-01.jpg') }}" alt="lounge" />
+            <img src="{{asset('image/img.png') }}" alt="lounge" />
+            <img src="{{asset('image/happyclient-01.jpg') }}" alt="lounge" />
         </div>
         <div class="lounge__content">
             <h2 class="section__header">Donnez un Coup d’Accélérateur à Votre Croissance et Vos Opportunités</h2>
@@ -130,27 +130,27 @@
         <h2 class="section__header">Rencontrez notre équipe</h2>
         <div class="travellers__grid">
             <div class="travellers__card__content">
-                <img src="{{public('photo/raed.jpg') }}" alt="client" />
+                <img src="{{asset('image/raed.jpg') }}" alt="client" />
                 <h4>Nefzi raed</h4>
                 <p>CEO</p>
             </div>
             <div class="travellers__card__content">
-                <img src="{{public('photo/bechir.jpg') }}" alt="client" />
+                <img src="{{asset('image/bechir.jpg') }}" alt="client" />
                 <h4>Zarrouki bechir</h4>
                 <p>Program Cordinator</p>
             </div>
             <div class="travellers__card__content">
-                <img src="{{public('photo/eya.jpg') }}" alt="client" />
+                <img src="{{asset('image/eya.jpg') }}" alt="client" />
                 <h4>Latiri eya</h4>
                 <p>Public Relations</p>
             </div>
             <div class="travellers__card__content">
-                <img src="{{public('photo/mhimed.jpg') }}" alt="client" />
+                <img src="{{asset('image/mhimed.jpg') }}" alt="client" />
                 <h4>Langliz mahmoud</h4>
                 <p>Fundraising Officer</p>
             </div>
             <div class="travellers__card__content">
-                <img src="{{public('photo/client-4.jpg') }}" alt="client" />
+                <img src="{{asset('image/client-4.jpg') }}" alt="client" />
                 <h4>Aziz Gharbi</h4>
                 <p>Marketing Responsible</p>
             </div>
