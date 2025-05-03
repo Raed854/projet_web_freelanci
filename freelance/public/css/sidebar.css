@@ -1,0 +1,187 @@
+/* sidebar.css - Amélioré pour site de freelance */
+
+/* Variables pour une meilleure maintenance */
+:root {
+    --primary-color: #4a6cf7;
+    --hover-color: #2c4ddf;
+    --background-color: #f8f9fa;
+    --sidebar-width: 250px;
+    --text-color: #333;
+    --text-light: #fff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --border-radius: 8px;
+}
+
+/* Reset et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Container principal */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background: linear-gradient(135deg, #4a6cf7 0%, #2c4ddf 100%);
+    color: var(--text-light);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    z-index: 1000;
+    padding-top: 30px;
+}
+
+/* Logo ou titre de la sidebar */
+.sidebar-header {
+    padding: 0 20px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.sidebar-header h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.sidebar-header p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Menu de la sidebar */
+.sidebar-menu {
+    list-style: none;
+    padding: 0 15px;
+}
+
+.sidebar-menu li {
+    margin-bottom: 8px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.95rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar-menu li a:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+    z-index: -1;
+}
+
+.sidebar-menu li a:hover:before {
+    left: 0;
+}
+
+.sidebar-menu li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.sidebar-menu li.active a {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+}
+
+/* Icônes dans le menu */
+.sidebar-menu li a i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* Pied de la sidebar */
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+/* Contenu principal */
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 30px;
+    width: calc(100% - var(--sidebar-width));
+    transition: var(--transition);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    
+    .sidebar.active {
+        width: var(--sidebar-width);
+        padding-top: 30px;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .main-content.sidebar-active {
+        margin-left: var(--sidebar-width);
+        width: calc(100% - var(--sidebar-width));
+    }
+    
+    .sidebar-toggle {
+        display: block;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1001;
+        background: var(--primary-color);
+        color: var(--text-light);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+    }
+}

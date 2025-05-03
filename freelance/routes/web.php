@@ -24,6 +24,13 @@ Route::get('/home', function () {
 Route::get('/login', function () {
     return view('login.login');
 })->name('login');
+Route::get('/gestionpost', function () {
+    return view('gestiondepost.gestionpost');
+})->name('gestionpost');
+
+Route::get('/gestioncour', function () {
+    return view('gestioncours.gestioncour');
+})->name('gestioncour');
 
 // CRUD routes for User model
 Route::resource('users', UserController::class);

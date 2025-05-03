@@ -1,0 +1,168 @@
+/* gestioncours.css - Style pour la page de gestion des cours */
+
+/* Conteneur principal */
+.courses-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Titre de la page */
+.page-title {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+}
+
+.page-title:after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background-color: #3498db;
+    margin: 0.5rem auto 0;
+}
+
+/* Liste des cours */
+.courses-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* Carte de cours */
+.course-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Titre du cours */
+.course-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* Description du cours */
+.course-description {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+/* Date du cours */
+.course-date {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Zone des boutons d'action */
+.course-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Formulaire de suppression */
+.delete-form {
+    margin: 0;
+}
+
+/* Bouton Modifier */
+.edit-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.edit-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.edit-button:active {
+    transform: translateY(0);
+    background-color: #2573a7;
+}
+
+/* Bouton Supprimer */
+.delete-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.delete-button:active {
+    transform: translateY(0);
+    background-color: #a93226;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .courses-list {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .courses-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .course-card {
+        max-width: 100%;
+    }
+    
+    .page-title {
+        font-size: 1.75rem;
+    }
+    
+    .course-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .edit-button, .delete-button {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,38 +1,52 @@
 @extends('layouts.app')
 
+
+
 @section('content')
-<div class="container">
-    <h1>Users</h1>
-    <a href="{{ route('users.create') }}" class="btn btn-primary">Create User</a>
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Role</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($users as $user)
+<link rel="stylesheet" href="{{ asset('css/affichageusers.css') }}">
+
+<div class="users-container">
+ 
+    <div class="page-header">
+        <h1 class="page-title">Users</h1>
+        <a href="{{ route('users.create') }}" class="btn-create">Create User</a>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="users-table">
+            <thead>
                 <tr>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->nom }}</td>
-                    <td>{{ $user->prenom }}</td>
-                    <td>{{ $user->role }}</td>
-                    <td>
-                        <a href="{{ route('users.show', $user) }}" class="btn btn-info">View</a>
-                        <a href="{{ route('users.edit', $user) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('users.destroy', $user) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
+                    <th>Email</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Role</th>
+                    <th>Actions</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($users as $user)
+                    <tr>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->nom }}</td>
+                        <td>{{ $user->prenom }}</td>
+                        <td>
+                            <span class="role-badge">{{ $user->role }}</span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{{ route('users.show', $user) }}" class="btn btn-info">View</a>
+                                <a href="{{ route('users.edit', $user) }}" class="btn btn-warning">Edit</a>
+                                <form action="{{ route('users.destroy', $user) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 @endsection
