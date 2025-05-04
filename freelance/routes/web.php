@@ -38,6 +38,12 @@ Route::get('/projet', function () {
 Route::get('/proposition', function () {
     return view('proposition.proposition');
 })->name('proposition');
+Route::get('/post', function () {
+    return view('post.post');
+})->name('post');
+Route::get('/message', function () {
+    return view('message.message');
+})->name('message');
 // CRUD routes for User model
 Route::resource('users', UserController::class);
 
