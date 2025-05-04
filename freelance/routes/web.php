@@ -31,7 +31,9 @@ Route::get('/gestionpost', function () {
 Route::get('/gestioncour', function () {
     return view('gestioncours.gestioncour');
 })->name('gestioncour');
-
+Route::get('/projet', function () {
+    return view('projet.projet');
+})->name('projet');
 // CRUD routes for User model
 Route::resource('users', UserController::class);
 
