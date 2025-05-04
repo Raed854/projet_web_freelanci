@@ -16,7 +16,7 @@
             <li class="link"><a href="#">Home</a></li>
             <li class="link"><a href="#">About</a></li>
         </ul>
-        <button class="btn"><a href="{{ route('login') }}" style="color:white;">Login</a></button>
+        <a href="{{ Route('login') }}" style="color:white;"><button class="btn">Login</button></a>
     </nav>
 
     <header class="section__container header__container">
