@@ -16,7 +16,7 @@
     <!-- Formulaire en pop-up -->
     <div id="proposition-form">
         <button onclick="closeForm()" class="close-form-button">&times;</button>
-        <form method="POST" action="#">
+        <form method="POST" action="{{ route('propositions.store', $project->id) }}">
             @csrf
             <label>Contenu de votre proposition :</label><br>
             <textarea name="contenu" required placeholder="Décrivez votre proposition en détail..."></textarea><br>
@@ -35,56 +35,68 @@
     </div>
     
     <hr>
-    <h2>Propositions disponibles</h2>
-    
-    @php
-        $propositions = [
-            [
-                'contenu' => 'Je peux réaliser ce projet en 7 jours avec un budget de 500 TND. Mon approche sera centrée sur la qualité et la performance.',
-                'budget' => 500,
-                'date_creation' => '2024-12-01',
-                'date_fin' => '2024-12-08'
-            ],
-            [
-                'contenu' => 'Je propose une solution complète pour 750 TND, livraison en 10 jours. Cette offre inclut le support et la maintenance pendant 2 semaines après livraison.',
-                'budget' => 750,
-                'date_creation' => '2024-12-02',
-                'date_fin' => '2024-12-12'
-            ],
-            [
-                'contenu' => 'Développement rapide avec support pendant 1 mois, budget 1000 TND. Je garantis une interface moderne et une expérience utilisateur optimale.',
-                'budget' => 1000,
-                'date_creation' => '2024-12-03',
-                'date_fin' => '2024-12-15'
-            ]
-        ];
-    @endphp
+    <h2>Propositions pour le projet: {{ $project->name }}</h2>
     
     <div class="propositions-list">
-        @foreach ($propositions as $proposition)
+        @foreach ($project->propositions as $proposition)
             <div class="proposition-card">
-                <p><strong>Proposition:</strong> {{ $proposition['contenu'] }}</p>
-                <p><strong>Budget:</strong> {{ $proposition['budget'] }} TND</p>
-                <p><strong>Début:</strong> {{ \Carbon\Carbon::parse($proposition['date_creation'])->format('d/m/Y') }}</p>
-                <p><strong>Livraison:</strong> {{ \Carbon\Carbon::parse($proposition['date_fin'])->format('d/m/Y') }}</p>
-                <!-- Le badge de budget sera ajouté par JavaScript -->
+                <p><strong>Proposition:</strong> {{ $proposition->contenu }}</p>
+                <p><strong>Budget:</strong> {{ $proposition->budget }} TND</p>
+                <p><strong>Début:</strong> {{ \Carbon\Carbon::parse($proposition->date_creation)->format('d/m/Y') }}</p>
+                <p><strong>Livraison:</strong> {{ \Carbon\Carbon::parse($proposition->date_fin)->format('d/m/Y') }}</p>
                 
                 <div class="card-actions">
-                    <button class="message-btn" onclick="toggleMessageForm(this)">Message</button>
-                </div>
-                
-                <!-- Formulaire de message caché -->
-                <div class="message-form" style="display: none;">
-                    <textarea placeholder="Écrivez votre message ici..."></textarea>
-                    <div class="message-actions">
-                        <button class="send-message-btn">Envoyer</button>
-                        <button class="cancel-message-btn" onclick="toggleMessageForm(this.parentNode.parentNode.previousElementSibling.querySelector('.message-btn'))">Annuler</button>
-                    </div>
+                    <button onclick="openEditPopup({{ $proposition }})" class="edit-button">Modifier</button>
+                    <form action="{{ route('propositions.destroy', $proposition) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="delete-button">Supprimer</button>
+                    </form>
                 </div>
             </div>
         @endforeach
     </div>
 </div>
+
+<!-- Popup for editing proposition -->
+<div id="editPopup" class="popup" style="display:none;">
+    <div class="popup-content">
+        <span class="close" onclick="closeEditPopup()">&times;</span>
+        <h2>Modifier la Proposition</h2>
+        <form id="editForm" method="POST">
+            @csrf
+            @method('PUT')
+            <label>Contenu de votre proposition :</label><br>
+            <textarea id="editContenu" name="contenu" required></textarea><br>
+            
+            <label>Budget proposé (TND) :</label><br>
+            <input type="number" id="editBudget" name="budget" required><br>
+            
+            <label>Date de début :</label><br>
+            <input type="date" id="editDateCreation" name="date_creation" required><br>
+            
+            <label>Date de livraison :</label><br>
+            <input type="date" id="editDateFin" name="date_fin" required><br>
+            
+            <button type="submit">Enregistrer les modifications</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openEditPopup(proposition) {
+        document.getElementById('editPopup').style.display = 'block';
+        document.getElementById('editForm').action = `/propositions/${proposition.id}`;
+        document.getElementById('editContenu').value = proposition.contenu;
+        document.getElementById('editBudget').value = proposition.budget;
+        document.getElementById('editDateCreation').value = proposition.date_creation;
+        document.getElementById('editDateFin').value = proposition.date_fin;
+    }
+
+    function closeEditPopup() {
+        document.getElementById('editPopup').style.display = 'none';
+    }
+</script>
 
 <!-- Inclure le script JavaScript -->
 <script src="{{ asset('js/propositions.js') }}"></script>

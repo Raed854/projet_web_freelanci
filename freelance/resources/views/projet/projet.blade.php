@@ -28,19 +28,23 @@
     <div class="posts-list">
         @foreach ($projects as $project)
             <div class="post-card">
-                <div class="post-details">
-                    <h2 class="post-title">{{ $project->name }}</h2>
-                    <p class="post-content">{{ $project->description }}</p>
-                    <p class="post-date">Début: {{ \Carbon\Carbon::parse($project->start_date)->format('d/m/Y') }}</p>
-                    @if ($project->end_date)
-                        <p class="post-date">Fin: {{ \Carbon\Carbon::parse($project->end_date)->format('d/m/Y') }}</p>
-                    @endif
-                    <p class="post-status">Status: {{ ucfirst($project->status) }}</p>
-                    <button onclick="openEditPopup({{ $project }})">Modifier</button>
+                <a href="{{ route('propositions.index', $project->id) }}" class="post-card-link">
+                    <div class="post-details">
+                        <h2 class="post-title">{{ $project->name }}</h2>
+                        <p class="post-content">{{ $project->description }}</p>
+                        <p class="post-date">Début: {{ \Carbon\Carbon::parse($project->start_date)->format('d/m/Y') }}</p>
+                        @if ($project->end_date)
+                            <p class="post-date">Fin: {{ \Carbon\Carbon::parse($project->end_date)->format('d/m/Y') }}</p>
+                        @endif
+                        <p class="post-status">Status: {{ ucfirst($project->status) }}</p>
+                    </div>
+                </a>
+                <div class="button-group">
+                    <button onclick="openEditPopup({{ $project }})" class="edit-button">Modifier</button>
                     <form action="{{ route('projects.destroy', $project) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit">Supprimer</button>
+                        <button type="submit" class="delete-button">Supprimer</button>
                     </form>
                 </div>
             </div>

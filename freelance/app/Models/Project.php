@@ -16,4 +16,9 @@ class Project extends Model
         'end_date',
         'status',
     ];
+
+    public function propositions()
+    {
+        return $this->hasMany(Proposition::class);
+    }
 }

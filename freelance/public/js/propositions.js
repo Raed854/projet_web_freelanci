@@ -22,26 +22,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Fonction pour afficher le pop-up avec animation
 function toggleForm() {
-    var form = document.getElementById("proposition-form");
-    var overlay = document.getElementById("overlay");
+    const form = document.getElementById('proposition-form');
+    const overlay = document.getElementById('overlay');
     
-    if (form.style.display === "none" || form.style.display === "") {
-        // Afficher l'overlay d'abord
-        overlay.style.display = "block";
+    if (form.style.display === 'none' || !form.style.display) {
+        form.style.display = 'block';
+        overlay.style.display = 'block';
         setTimeout(() => {
+            form.classList.add('active');
             overlay.classList.add('active');
         }, 10);
-        
-        // Puis afficher le formulaire avec animation
-        setTimeout(() => {
-            form.style.display = "block";
-            setTimeout(() => {
-                form.classList.add('active');
-            }, 50);
-        }, 200);
-        
-        // Empêcher le scroll sur le body
-        document.body.style.overflow = "hidden";
     } else {
         closeForm();
     }
@@ -49,18 +39,15 @@ function toggleForm() {
 
 // Fonction pour fermer le pop-up avec animation
 function closeForm() {
-    var form = document.getElementById("proposition-form");
-    var overlay = document.getElementById("overlay");
+    const form = document.getElementById('proposition-form');
+    const overlay = document.getElementById('overlay');
     
-    // Animation de fermeture du formulaire
     form.classList.remove('active');
     overlay.classList.remove('active');
-    
-    // Attendre la fin de l'animation avant de cacher les éléments
     setTimeout(() => {
-        form.style.display = "none";
-        overlay.style.display = "none";
-        document.body.style.overflow = "auto";
+        form.style.display = 'none';
+        overlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
     }, 300);
 }
 
@@ -175,4 +162,34 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+});
+
+function openEditPopup(proposition) {
+    const popup = document.getElementById('editPopup');
+    popup.style.display = 'flex';
+    setTimeout(() => {
+        popup.classList.add('active');
+    }, 10);
+    
+    document.getElementById('editForm').action = `/propositions/${proposition.id}`;
+    document.getElementById('editContenu').value = proposition.contenu;
+    document.getElementById('editBudget').value = proposition.budget;
+    document.getElementById('editDateCreation').value = proposition.date_creation;
+    document.getElementById('editDateFin').value = proposition.date_fin;
+}
+
+function closeEditPopup() {
+    const popup = document.getElementById('editPopup');
+    popup.classList.remove('active');
+    setTimeout(() => {
+        popup.style.display = 'none';
+    }, 300);
+}
+
+// Close popup when clicking outside
+document.addEventListener('click', function(event) {
+    const popup = document.getElementById('editPopup');
+    if (event.target === popup) {
+        closeEditPopup();
+    }
 });
