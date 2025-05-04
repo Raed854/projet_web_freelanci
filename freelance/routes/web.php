@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,8 @@ Route::resource('users', UserController::class);
 Route::resource('posts', PostController::class);
 
 Route::resource('courses', CourseController::class);
+
+Route::resource('projects', ProjectController::class);
 
 Route::post('/signup', [AuthController::class, 'store'])->name('signup.store');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
