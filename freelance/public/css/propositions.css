@@ -1,0 +1,505 @@
+/* Styles généraux et variables */
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3a0ca3;
+    --accent-color: #f72585;
+    --success-color: #4cc9f0;
+    --text-color: #2b2d42;
+    --light-bg: #f8f9fa;
+    --card-shadow: 0 10px 20px rgba(67, 97, 238, 0.1);
+    --popup-shadow: 0 15px 30px rgba(58, 12, 163, 0.2);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --border-radius: 12px;
+  }
+  
+  body {
+    background-color: #f8fafc;
+    color: var(--text-color);
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+  }
+  
+  .propositions-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+  
+  /* Animation pour les éléments qui entrent dans la vue */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Titre principal avec effet de soulignement */
+  .page-title {
+    color: var(--text-color);
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: fadeInUp 0.8s ease;
+  }
+  
+  .page-title::after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+  }
+  
+  /* Bouton pour afficher le formulaire */
+  .show-form-button {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: block;
+    margin: 0 auto 40px;
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+    animation: fadeInUp 1s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .show-form-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+  }
+  
+  .show-form-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(67, 97, 238, 0.4);
+  }
+  
+  .show-form-button:hover::before {
+    left: 100%;
+  }
+  
+  /* Overlay pour le fond sombre */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
+  
+  .overlay.active {
+    opacity: 1;
+  }
+  
+  /* Formulaire en pop-up */
+  #proposition-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: var(--popup-shadow);
+    z-index: 1000;
+    max-width: 550px;
+    width: 90%;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: none;
+  }
+  
+  #proposition-form.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  #proposition-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #proposition-form label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-size: 15px;
+    transition: var(--transition);
+  }
+  
+  #proposition-form textarea {
+    width: 100%;
+    height: 140px;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    resize: vertical;
+    font-family: inherit;
+    transition: var(--transition);
+    background-color: #f9f9f9;
+  }
+  
+  #proposition-form input[type="number"],
+  #proposition-form input[type="date"] {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: var(--transition);
+    background-color: #f9f9f9;
+  }
+  
+  #proposition-form textarea:focus,
+  #proposition-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+    background-color: white;
+  }
+  
+  #proposition-form button[type="submit"] {
+    background: linear-gradient(135deg, var(--success-color), var(--primary-color));
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+    align-self: center;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
+    margin-top: 10px;
+  }
+  
+  #proposition-form button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(76, 201, 240, 0.4);
+  }
+  
+  /* Bouton de fermeture du pop-up */
+  .close-form-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(245, 245, 245, 0.9);
+    border: none;
+    font-size: 20px;
+    color: #757575;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+  }
+  
+  .close-form-button:hover {
+    background-color: #f0f0f0;
+    color: var(--accent-color);
+    transform: rotate(90deg);
+  }
+  
+  /* Séparation avec animation */
+  hr {
+    border: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    margin: 40px 0;
+    opacity: 0.3;
+  }
+  
+  /* Titre de la section des propositions */
+  h2 {
+    color: var(--text-color);
+    font-size: 24px;
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+    animation: fadeInUp 1.2s ease;
+  }
+  
+  h2::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 3px;
+    background: var(--accent-color);
+    bottom: -8px;
+    left: 0;
+    border-radius: 2px;
+  }
+  
+  /* Liste des propositions */
+  .propositions-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    animation: fadeInUp 1.4s ease;
+  }
+  
+  /* Cartes de proposition */
+  .proposition-card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .proposition-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+    transition: var(--transition);
+  }
+  
+  .proposition-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(67, 97, 238, 0.15);
+  }
+  
+  .proposition-card:hover::before {
+    height: 100%;
+  }
+  
+  .proposition-card p {
+    margin: 12px 0;
+    line-height: 1.6;
+    transition: var(--transition);
+    padding-left: 10px;
+  }
+  
+  .proposition-card strong {
+    color: var(--secondary-color);
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  /* Animation d'entrée des cartes */
+  .propositions-list {
+    perspective: 1000px;
+  }
+  
+  .proposition-card {
+    animation: cardEntry 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  /* Styles pour le bouton Message */
+  .card-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .message-btn {
+    background: linear-gradient(135deg, var(--accent-color), #b5179e);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 3px 10px rgba(247, 37, 133, 0.3);
+  }
+  
+  .message-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(247, 37, 133, 0.4);
+  }
+  
+  .message-btn.active {
+    background: linear-gradient(135deg, #b5179e, var(--accent-color));
+  }
+  
+  /* Styles pour le formulaire de message */
+  .message-form {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .message-form textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+    transition: var(--transition);
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+  }
+  
+  .message-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(247, 37, 133, 0.15);
+    background-color: white;
+  }
+  
+  .message-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .send-message-btn, .cancel-message-btn {
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    flex: 1;
+  }
+  
+  .send-message-btn {
+    background: linear-gradient(135deg, var(--success-color), #4895ef);
+    color: white;
+    border: none;
+    box-shadow: 0 3px 10px rgba(76, 201, 240, 0.3);
+  }
+  
+  .send-message-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 201, 240, 0.4);
+  }
+  
+  .cancel-message-btn {
+    background: transparent;
+    color: #64748b;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .cancel-message-btn:hover {
+    background-color: #f1f5f9;
+    color: #334155;
+  }
+  
+  @keyframes cardEntry {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .proposition-card:nth-child(1) { animation-delay: 0.1s; }
+  .proposition-card:nth-child(2) { animation-delay: 0.3s; }
+  .proposition-card:nth-child(3) { animation-delay: 0.5s; }
+  .proposition-card:nth-child(4) { animation-delay: 0.7s; }
+  .proposition-card:nth-child(5) { animation-delay: 0.9s; }
+  
+  /* Badge pour le budget */
+  .proposition-card .budget-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  /* Styles responsive */
+  @media (max-width: 768px) {
+    .propositions-list {
+      grid-template-columns: 1fr;
+    }
+    
+    .page-title {
+      font-size: 26px;
+    }
+    
+    h2 {
+      font-size: 22px;
+    }
+    
+    #proposition-form {
+      padding: 25px;
+      width: 95%;
+    }
+    
+    .proposition-card {
+      padding: 20px;
+    }
+  }
+  
+  /* Animation pour les interactions */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
