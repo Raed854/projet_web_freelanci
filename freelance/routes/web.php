@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +18,8 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/home', function () {
     return view('home.home');
 });
 Route::get('/login', function () {
@@ -40,5 +41,16 @@ Route::get('/proposition', function () {
 // CRUD routes for User model
 Route::resource('users', UserController::class);
 
+// CRUD routes for Post model
+Route::resource('posts', PostController::class);
+
+Route::resource('courses', CourseController::class);
+
+Route::resource('projects', ProjectController::class);
+
 Route::post('/signup', [AuthController::class, 'store'])->name('signup.store');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+
+Route::get('/authors', [PostController::class, 'getAuthors'])->name('authors.index');
+
+Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
