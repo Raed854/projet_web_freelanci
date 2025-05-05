@@ -11,7 +11,7 @@
 
 @section('body')
     <nav>
-        <div class="nav__logo">InnovMatch</div>
+        <div class="nav__logo">Freela-connect</div>
         <ul class="nav__links">
             <li class="link"><a href="#">Home</a></li>
             <li class="link"><a href="#">About</a></li>

@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/gestionpost.css') }}">
 
 <div class="posts-container">
+
     <h1 class="page-title">Posts de Freelances</h1>
 
     @if ($errors->any())
@@ -46,7 +47,7 @@
         @endforeach
     </div>
 
-    <button id="addPostButton" class="add-post-button">Add Post</button>
+    
 
     <div id="addPostModal" class="modal" style="display: none;">
         <div class="modal-content">

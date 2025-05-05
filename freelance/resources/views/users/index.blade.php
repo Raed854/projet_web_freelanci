@@ -6,10 +6,12 @@
 <link rel="stylesheet" href="{{ asset('css/affichageusers.css') }}">
 
 <div class="users-container">
- 
+<div class="sidebar">
+        @include('composant.sidebar') 
+    </div>
     <div class="page-header">
         <h1 class="page-title">Users</h1>
-        <a href="{{ route('users.create') }}" class="btn-create">Create User</a>
+       
     </div>
     
     <div class="table-responsive">
@@ -34,7 +36,7 @@
                         </td>
                         <td>
                             <div class="action-buttons">
-                                <a href="{{ route('users.show', $user) }}" class="btn btn-info">View</a>
+                               
                                 <a href="{{ route('users.edit', $user) }}" class="btn btn-warning">Edit</a>
                                 <form action="{{ route('users.destroy', $user) }}" method="POST">
                                     @csrf

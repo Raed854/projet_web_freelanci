@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 <!-- Ajouter Font Awesome pour les icônes -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 
 <div class="dashboard-container">
     <!-- Bouton Toggle pour mobile -->
@@ -19,37 +20,34 @@
         </div>
         
         <ul class="sidebar-menu">
-          
-         
-        <li class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
-                <a href="{{ route('') }}">
-                    <i class="fas fa-users"></i> Gestion Users
-                </a>
-            </li>
-          
-            <li class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">
+            <!-- Lien vers la gestion des utilisateurs -->
+            <li class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
                
-                    <i class="fas fa-file-alt"></i> Gestion Posts
-            
+                    <i class="fas fa-users"></i> Projet
+              
             </li>
-            <li class="{{ request()->routeIs('cours.*') ? 'active' : '' }}">
-                
-                    <i class="fas fa-book"></i> Gestion Cours
-            
-            </li>
-            <li class="{{ request()->routeIs('clients.*') ? 'active' : '' }}">
           
-                    <i class="fas fa-briefcase"></i> Clients
+            <!-- Lien vers la gestion des posts -->
+            <li class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">
+              
+                    <i class="fas fa-file-alt"></i> Posts
              
             </li>
-            <li class="{{ request()->routeIs('projects.*') ? 'active' : '' }}">
-                
-                    <i class="fas fa-project-diagram"></i> Projets
+
+            <!-- Lien vers la gestion des cours -->
+            <li class="{{ request()->routeIs('courses.*') ? 'active' : '' }}">
            
+                    <i class="fas fa-book"></i> Cours
+            
             </li>
-            <li class="{{ request()->routeIs('invoices.*') ? 'active' : '' }}">
-               
-                    <i class="fas fa-file-invoice-dollar"></i> Factures
+            <li class="{{ request()->routeIs('courses.*') ? 'active' : '' }}">
+                
+                    <i class="fas fa-book"></i> Message
+              
+            </li>
+            <li class="{{ request()->routeIs('courses.*') ? 'active' : '' }}">
+                
+                    <i class="fas fa-book"></i> propositions
               
             </li>
         </ul>

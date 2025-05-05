@@ -16,9 +16,9 @@
             <input type="date" name="start_date" required><br>
             <input type="date" name="end_date"><br>
             <select name="status" required>
-                <option value="plannifier">plannifier</option>
-                <option value="encours">en cours</option>
-                <option value="complet">Complet</option>
+            <option value="planned">Planned</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="completed">Completed</option>
             </select><br>
             <button type="submit">Créer le Projet</button>
         </form>
