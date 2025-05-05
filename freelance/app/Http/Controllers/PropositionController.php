@@ -25,6 +25,8 @@ class PropositionController extends Controller
             'date_fin' => 'required|date|after_or_equal:date_creation',
         ]);
 
+        $validated['author_id'] = session('user_id');
+
         $project->propositions()->create($validated);
 
         return redirect()->route('propositions.index', ['project_id' => $project_id])->with('success', 'Proposition created successfully.');

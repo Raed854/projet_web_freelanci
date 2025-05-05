@@ -14,6 +14,7 @@ class Proposition extends Model
         'budget',
         'date_creation',
         'date_fin',
+        'author_id',
     ];
 
     public $timestamps = true;

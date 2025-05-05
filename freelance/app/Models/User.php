@@ -50,4 +50,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class, 'author_id');
     }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'author_id');
+    }
+
+    public function chatsAsUser1()
+    {
+        return $this->hasMany(Chat::class, 'user1_id');
+    }
+
+    public function chatsAsUser2()
+    {
+        return $this->hasMany(Chat::class, 'user2_id');
+    }
+    
 }

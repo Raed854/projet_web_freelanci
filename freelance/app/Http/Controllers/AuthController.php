@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -57,13 +58,26 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (auth()->attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/users')->with('success', 'You are logged in!');
+            $user = Auth::user();
+            session(['user_id' => $user->id]); // Save the user ID in the session
+
+            return redirect()->intended('/')->with('success', 'You are logged in!');
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('success', 'You have been logged out!');
     }
 }

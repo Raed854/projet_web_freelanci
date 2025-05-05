@@ -28,6 +28,8 @@ class ProjectController extends Controller
             'status' => 'required|string|in:planned,ongoing,completed',
         ]);
 
+        $validatedData['author_id'] = session('user_id'); // Set author_id from session
+
         Project::create($validatedData);
 
         return redirect()->route('projects.index')->with('success', 'Project created successfully.');

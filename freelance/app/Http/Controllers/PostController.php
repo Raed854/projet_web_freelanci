@@ -17,6 +17,12 @@ class PostController extends Controller
         return view('gestiondepost.gestionpost', ['posts' => $posts]);
     }
 
+    public function index1()
+    {
+        $posts = Post::all();
+        return view('post.post', ['posts' => $posts]);
+    }
+
     public function store(Request $request)
     {
         try {
@@ -24,15 +30,15 @@ class PostController extends Controller
                 'titre' => 'required|string|max:255',
                 'contenu' => 'required|string',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'author_id' => 'required|exists:users,id',
             ], [
                 'titre.required' => 'The titre field is required.',
                 'contenu.required' => 'The contenu field is required.',
                 'image.required' => 'The image field is required.',
                 'image.image' => 'The image must be a valid image file.',
-                'author_id.required' => 'The author field is required.',
-                'author_id.exists' => 'The selected author does not exist.',
             ]);
+
+            $validated['author_id'] = session('user_id'); // Use the user ID from the session
+
             if ($request->hasFile('image')) {
                 try {
                     $imagePath = $request->file('image')->store('images', 'public');
