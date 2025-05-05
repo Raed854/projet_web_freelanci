@@ -16,7 +16,7 @@
             <input type="date" name="start_date" required><br>
             <input type="date" name="end_date"><br>
             <select name="status" required>
-            <option value="planned">Planned</option>
+                <option value="planned">Planned</option>
                 <option value="ongoing">Ongoing</option>
                 <option value="completed">Completed</option>
             </select><br>
@@ -52,42 +52,95 @@
     </div>
 </div>
 
-<!-- Popup for editing project -->
-<div id="editPopup" class="popup" style="display:none;">
+<!-- Popup amélioré pour l'édition de projet -->
+<div id="editPopup" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeEditPopup()">&times;</span>
         <h2>Modifier le Projet</h2>
         <form id="editForm" method="POST">
             @csrf
             @method('PUT')
-            <input type="text" id="editName" name="name" placeholder="Nom du projet" required><br>
-            <textarea id="editDescription" name="description" placeholder="Description du projet" required></textarea><br>
-            <input type="date" id="editStartDate" name="start_date" required><br>
-            <input type="date" id="editEndDate" name="end_date"><br>
-            <select id="editStatus" name="status" required>
-                <option value="planned">Planned</option>
-                <option value="ongoing">Ongoing</option>
-                <option value="completed">Completed</option>
-            </select><br>
+            <div class="form-group">
+                <input type="text" id="editName" name="name" placeholder="Nom du projet" required>
+            </div>
+            <div class="form-group">
+                <textarea id="editDescription" name="description" placeholder="Description du projet" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="editStartDate">Date de début</label>
+                <input type="date" id="editStartDate" name="start_date" required>
+            </div>
+            <div class="form-group">
+                <label for="editEndDate">Date de fin (optionnelle)</label>
+                <input type="date" id="editEndDate" name="end_date">
+            </div>
+            <div class="form-group">
+                <label for="editStatus">Statut</label>
+                <select id="editStatus" name="status" required>
+                    <option value="planned">Planifié</option>
+                    <option value="ongoing">En cours</option>
+                    <option value="completed">Terminé</option>
+                </select>
+            </div>
             <button type="submit">Enregistrer les modifications</button>
         </form>
     </div>
 </div>
 
 <script>
-    function openEditPopup(project) {
-        document.getElementById('editPopup').style.display = 'block';
-        document.getElementById('editForm').action = `/projects/${project.id}`;
-        document.getElementById('editName').value = project.name;
-        document.getElementById('editDescription').value = project.description;
-        document.getElementById('editStartDate').value = project.start_date;
-        document.getElementById('editEndDate').value = project.end_date;
-        document.getElementById('editStatus').value = project.status;
-        document.getElementById('editPopup').style.display = 'block';
-    }
+// Script amélioré pour gérer le popup d'édition
+function openEditPopup(project) {
+    // Récupérer le popup et ajouter la classe active
+    const popup = document.getElementById('editPopup');
+    popup.style.display = 'flex';
+    
+    // Ajouter une classe active après un court délai pour l'animation
+    setTimeout(() => {
+        popup.classList.add('active');
+    }, 10);
+    
+    // Configurer le formulaire avec les données du projet
+    document.getElementById('editForm').action = `/projects/${project.id}`;
+    document.getElementById('editName').value = project.name;
+    document.getElementById('editDescription').value = project.description;
+    document.getElementById('editStartDate').value = project.start_date;
+    document.getElementById('editEndDate').value = project.end_date || '';
+    document.getElementById('editStatus').value = project.status;
+    
+    // Empêcher le défilement du corps
+    document.body.style.overflow = 'hidden';
+}
 
-    function closeEditPopup() {
-        document.getElementById('editPopup').style.display = 'none';
-    }
+function closeEditPopup() {
+    // Récupérer le popup et supprimer la classe active
+    const popup = document.getElementById('editPopup');
+    popup.classList.remove('active');
+    
+    // Cacher le popup après la fin de l'animation
+    setTimeout(() => {
+        popup.style.display = 'none';
+    }, 300);
+    
+    // Réactiver le défilement du corps
+    document.body.style.overflow = '';
+}
+
+// Fermer le popup en cliquant à l'extérieur du contenu
+document.addEventListener('DOMContentLoaded', function() {
+    const popup = document.getElementById('editPopup');
+    
+    popup.addEventListener('click', function(event) {
+        if (event.target === popup) {
+            closeEditPopup();
+        }
+    });
+    
+    // Ajouter un gestionnaire d'événements pour la touche Echap
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && popup.style.display === 'flex') {
+            closeEditPopup();
+        }
+    });
+});
 </script>
 @endsection

@@ -39,7 +39,7 @@
     
     <div class="propositions-list">
         @foreach ($project->propositions as $proposition)
-            <div class="proposition-card">
+        <div class="proposition-card" onclick="startChat({{ auth()->id() }}, {{ $proposition->author_id }})">
                 <p><strong>Proposition:</strong> {{ $proposition->contenu }}</p>
                 <p><strong>Budget:</strong> {{ $proposition->budget }} TND</p>
                 <p><strong>Début:</strong> {{ \Carbon\Carbon::parse($proposition->date_creation)->format('d/m/Y') }}</p>
@@ -54,6 +54,9 @@
                     </form>
                 </div>
             </div>
+            <form id="chatForm{{ $proposition->id }}" action="{{ route('chat.store', $proposition->author_id) }}" method="POST" style="display: none;">
+    @csrf
+</form>
         @endforeach
     </div>
 </div>
@@ -84,6 +87,28 @@
 </div>
 
 <script>
+    function startChat(user1, user2) {
+    fetch("{{ route('chat.store') }}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        },
+        body: JSON.stringify({
+            user1_id: user1,
+            user2_id: user2
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Chat created:", data);
+        // Optional: redirect to the chat page
+        // window.location.href = `/chat/${data.id}`;
+    })
+    .catch(error => {
+        console.error("Error creating chat:", error);
+    });
+}
     function openEditPopup(proposition) {
         document.getElementById('editPopup').style.display = 'block';
         document.getElementById('editForm').action = `/propositions/${proposition.id}`;

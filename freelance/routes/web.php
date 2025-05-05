@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProjectController;
@@ -54,7 +55,7 @@ Route::resource('projects', ProjectController::class);
 
 // CRUD routes for Proposition model
 Route::resource('propositions', PropositionController::class);
-
+Route::resource('chat', ChatController::class);
 Route::post('/signup', [AuthController::class, 'store'])->name('signup.store');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 
