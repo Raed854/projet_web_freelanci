@@ -133,10 +133,14 @@
     z-index: 1000;
     max-width: 550px;
     width: 90%;
+    max-height: 90vh;              /* set max height */
+    overflow-y: auto;              /* enable vertical scroll */
+    box-sizing: border-box;        /* ensures padding doesn't exceed max-height */
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     display: none;
-  }
+}
+
   
   #proposition-form.active {
     opacity: 1;
@@ -337,36 +341,7 @@
     justify-content: flex-end;
   }
   
-  .message-btn {
-    background: linear-gradient(135deg, var(--accent-color), #b5179e);
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: 0 3px 10px rgba(247, 37, 133, 0.3);
-  }
-  
-  .message-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(247, 37, 133, 0.4);
-  }
-  
-  .message-btn.active {
-    background: linear-gradient(135deg, #b5179e, var(--accent-color));
-  }
-  
-  /* Styles pour le formulaire de message */
-  .message-form {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #f0f0f0;
-    animation: slideDown 0.3s ease-out;
-  }
-  
+ 
   @keyframes slideDown {
     from {
       opacity: 0;
@@ -378,64 +353,6 @@
     }
   }
   
-  .message-form textarea {
-    width: 100%;
-    min-height: 80px;
-    padding: 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    resize: vertical;
-    font-family: inherit;
-    transition: var(--transition);
-    background-color: #f9f9f9;
-    margin-bottom: 10px;
-  }
-  
-  .message-form textarea:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(247, 37, 133, 0.15);
-    background-color: white;
-  }
-  
-  .message-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  
-  .send-message-btn, .cancel-message-btn {
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: var(--transition);
-    flex: 1;
-  }
-  
-  .send-message-btn {
-    background: linear-gradient(135deg, var(--success-color), #4895ef);
-    color: white;
-    border: none;
-    box-shadow: 0 3px 10px rgba(76, 201, 240, 0.3);
-  }
-  
-  .send-message-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(76, 201, 240, 0.4);
-  }
-  
-  .cancel-message-btn {
-    background: transparent;
-    color: #64748b;
-    border: 1px solid #e0e0e0;
-  }
-  
-  .cancel-message-btn:hover {
-    background-color: #f1f5f9;
-    color: #334155;
-  }
   
   @keyframes cardEntry {
     from {
@@ -578,6 +495,7 @@
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    
 }
 
 .popup.active {
@@ -636,7 +554,7 @@
 .popup-content form {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    
 }
 
 .popup-content label {

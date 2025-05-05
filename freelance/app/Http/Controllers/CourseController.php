@@ -56,13 +56,16 @@ class CourseController extends Controller
 
         $course = Course::findOrFail($id);
 
-        $fileNames = explode(',', $course->files);
         if ($request->hasFile('files')) {
+            $fileNames = [];
             foreach ($request->file('files') as $file) {
                 $filePath = $file->store('course_files', 'public');
                 $fileNames[] = $filePath;
             }
+        } else {
+            $fileNames = []; // or keep the old ones if needed
         }
+        
 
         $validated['files'] = implode(',', $fileNames);
 

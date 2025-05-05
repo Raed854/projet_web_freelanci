@@ -165,9 +165,6 @@
                                         <i class="file-icon">📄</i> {{ basename($file) }}
                                     </a>
                                 @endif
-                                <label>
-                                    <input type="checkbox" name="remove_files[]" value="{{ $file }}"> Remove
-                                </label>
                             </div>
                         @endforeach
                     @endif

@@ -168,9 +168,12 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
+    overflow: auto; 
 }
 
 .modal-content {
+    max-height: 90vh; /* limits modal height */
+    overflow-y: auto;
     background-color: #fff;
     border-radius: 12px;
     padding: 2rem;
@@ -307,6 +310,8 @@
 
 .file-image {
     max-width: 100%;
+    width:100px;
+    height: 50px;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
