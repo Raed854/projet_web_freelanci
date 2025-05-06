@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/gestioncours.css') }}">
+<link rel="stylesheet" href="{{ asset('css/showcours.css') }}">
 
 <div class="course-details-container">
     <h1 class="course-title">{{ $course->titre }}</h1>

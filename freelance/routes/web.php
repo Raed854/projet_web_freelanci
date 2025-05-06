@@ -43,6 +43,8 @@ Route::get('/proposition', function () {
 Route::get('/message', function () {
     return view('message.message');
 })->name('message');
+
+
 // CRUD routes for User model
 Route::resource('users', UserController::class);
 
@@ -61,8 +63,9 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 
 Route::get('/authors', [PostController::class, 'getAuthors'])->name('authors.index');
 
-Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
+Route::get('/courses/{id}', [CourseController::class, 'show'])->name('course.show');
 Route::get('/post', [PostController::class, 'index1'])->name('post.show');
+Route::get('/cours', [CourseController::class, 'index1'])->name('cours.index');
 // Change the parameter binding to use project ID
 Route::get('projects/{project_id}/propositions', [PropositionController::class, 'index'])->name('propositions.index');
 Route::post('projects/{project_id}/propositions', [PropositionController::class, 'store'])->name('propositions.store');

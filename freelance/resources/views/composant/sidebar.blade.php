@@ -14,10 +14,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-header">
-            <h3>Freelance Admin</h3>
-            <p>Tableau de bord</p>
-        </div>
+    
         
         <ul class="sidebar-menu">
             <!-- Lien vers la gestion des utilisateurs -->

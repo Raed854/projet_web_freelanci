@@ -10,7 +10,7 @@ class ChatController extends Controller
     public function index()
     {
         $chats = Chat::all();
-        return response()->json($chats);
+        return view('message.message', ['chats' => $chat]);
     }
 
     public function store(Request $request)

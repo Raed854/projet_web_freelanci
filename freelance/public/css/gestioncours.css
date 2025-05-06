@@ -1,383 +1,580 @@
-/* gestioncours.css - Style pour la page de gestion des cours */
+/* Gestion des Cours - Style Moderne
+ * Date: Mai 2025
+ */
 
-/* Conteneur principal */
+ :root {
+  --primary: #3a86ff;
+  --primary-dark: #2667cc;
+  --primary-light: #e0ecff;
+  --secondary: #ff006e;
+  --dark: #1e293b;
+  --light: #f1f5f9;
+  --gray: #64748b;
+  --light-gray: #e2e8f0;
+  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  --success: #10b981;
+  --delete: #ef4444;
+  --radius: 12px;
+  --transition: all 0.3s ease;
+  --container-padding: 2rem;
+}
+
+/* Base Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f6f9fc 0%, #edf2f7 100%);
+  color: var(--dark);
+  line-height: 1.6;
+}
+
 .courses-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: var(--container-padding);
 }
 
-/* Titre de la page */
+/* Page Title */
 .page-title {
-    color: #2c3e50;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    font-weight: 700;
-    position: relative;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+  color: var(--dark);
 }
 
-.page-title:after {
-    content: '';
-    display: block;
-    width: 100px;
-    height: 3px;
-    background-color: #3498db;
-    margin: 0.5rem auto 0;
-}
-
-/* Liste des cours */
-.courses-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2rem;
-}
-
-/* Carte de cours */
-.course-card {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    padding: 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-}
-
-.course-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-}
-
-/* Titre du cours */
-.course-title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #2c3e50;
-    font-weight: 600;
-}
-
-/* Description du cours */
-.course-description {
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-}
-
-/* Date du cours */
-.course-date {
-    color: #7f8c8d;
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-}
-
-/* Zone des boutons d'action */
-.course-actions {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-/* Formulaire de suppression */
-.delete-form {
-    margin: 0;
-}
-
-/* Bouton Modifier */
-.edit-button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.edit-button:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
-}
-
-.edit-button:active {
-    transform: translateY(0);
-    background-color: #2573a7;
-}
-
-/* Bouton Supprimer */
-.delete-button {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.delete-button:hover {
-    background-color: #c0392b;
-    transform: translateY(-2px);
-}
-
-.delete-button:active {
-    transform: translateY(0);
-    background-color: #a93226;
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: var(--primary);
+  border-radius: 2px;
 }
 
 /* Add Course Button */
 .add-course-button {
-    background-color: #4a6cf7;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    margin: 1rem 0;
-    display: inline-block;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(58, 134, 255, 0.2);
+}
+
+.add-course-button::before {
+  content: '+';
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
 }
 
 .add-course-button:hover {
-    background-color: #3a5cd7;
-    transform: translateY(-2px);
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(58, 134, 255, 0.3);
 }
 
 .add-course-button:active {
-    transform: translateY(0);
-    background-color: #2a4cb7;
+  transform: translateY(0);
 }
 
-/* Modal Styles */
-.modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    overflow: auto; 
+/* Success Message */
+.success-message {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  animation: fadeIn 0.5s ease-out;
+  border: 1px solid var(--success);
+  transition: opacity 0.5s ease;
 }
 
-.modal-content {
-    max-height: 90vh; /* limits modal height */
-    overflow-y: auto;
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 2rem;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    position: relative;
+.success-message::before {
+  content: '✓';
+  font-size: 1.25rem;
+  margin-right: 0.75rem;
+  color: var(--success);
 }
 
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    cursor: pointer;
-    transition: color 0.3s ease;
+/* Course Cards Layout */
+.courses-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+  margin: 0 auto;
 }
 
-.close-button:hover {
-    color: #ff3b30;
+.course-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
 }
 
-/* Form Styles */
-.modal-content .form-group {
-    margin-bottom: 1.5rem;
+.course-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+  position: relative;
+  height: 100%;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--light-gray);
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
 }
 
-.modal-content label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #333;
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15);
 }
 
-.modal-content input,
-.modal-content textarea,
-.modal-content select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    color: #333;
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary);
+  transition: var(--transition);
+  opacity: 0.8;
 }
 
-.modal-content button.create-button {
-    background-color: #4a6cf7;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+.course-card:hover::before {
+  width: 8px;
 }
 
-.modal-content button.create-button:hover {
-    background-color: #3a5cd7;
-    transform: translateY(-2px);
-}
-
-.modal-content button.create-button:active {
-    transform: translateY(0);
-    background-color: #2a4cb7;
-}
-
-/* Course Details Page */
-.course-details-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
+/* Course Content */
 .course-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 1rem;
-    text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 1.5rem 1.5rem 0.75rem;
+  color: var(--dark);
+  text-align: center;
 }
 
 .course-description {
-    font-size: 1.2rem;
-    color: #555;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-}
-
-.course-content {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 1.5rem;
-    line-height: 1.8;
-}
-
-.course-status {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #3498db;
-    margin-bottom: 1rem;
+  padding: 0 1.5rem;
+  margin: 0.5rem 0 1.5rem;
+  color: var(--gray);
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 1.1rem;
+  text-align: center;
 }
 
 .course-date {
-    font-size: 0.9rem;
-    color: #7f8c8d;
-    margin-bottom: 2rem;
-    text-align: right;
+  font-size: 0.875rem;
+  color: var(--gray);
+  padding: 0 1.5rem;
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
 }
 
-.course-files {
-    margin-top: 2rem;
+.course-date::before {
+  content: '📅';
+  margin-right: 0.5rem;
 }
 
-.course-files h3 {
-    font-size: 1.5rem;
-    color: #2c3e50;
-    margin-bottom: 1rem;
+/* Course Actions */
+.course-actions {
+  display: flex;
+  padding: 1rem 1.5rem;
+  background: #f8fafc;
+  border-top: 1px solid var(--light-gray);
+  justify-content: space-between;
+  margin-top: auto;
 }
 
-.course-files ul {
-    list-style: none;
-    padding: 0;
+.edit-button, .delete-button {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.course-files li {
-    margin-bottom: 1rem;
+.edit-button {
+  background: var(--light);
+  color: var(--dark);
+  border: 1px solid var(--light-gray);
+}
+
+.edit-button::before {
+  content: '✏️';
+  margin-right: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.edit-button:hover {
+  background: var(--light-gray);
+}
+
+.delete-button {
+  background: white;
+  color: var(--delete);
+  border: 1px solid var(--delete);
+}
+
+.delete-button::before {
+  content: '🗑️';
+  margin-right: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.delete-button:hover {
+  background: var(--delete);
+  color: white;
+}
+
+.delete-form {
+  margin: 0;
+}
+
+/* Modal Styles - MODIFIÉ */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal[style*="display: block"] {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: white;
+  border-radius: var(--radius);
+  width: 90%;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+.modal[style*="display: block"] .modal-content {
+  transform: translateY(0);
+}
+
+.modal-title {
+  color: var(--dark);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--primary-light);
+  padding-bottom: 0.75rem;
+}
+
+/* Style amélioré pour le bouton de fermeture */
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--gray);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition);
+  background: var(--light);
+}
+
+.close-button:hover {
+  background: var(--light-gray);
+  color: var(--dark);
+  transform: rotate(90deg);
+}
+
+/* Style pour l'overlay du modal avec effet de flou */
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+/* Form Styles */
+.add-course-form, #editCourseForm {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: var(--dark);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--light-gray);
+  border-radius: var(--radius);
+  font-family: 'Poppins', sans-serif;
+  transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Amélioration de la hauteur du champ contenu */
+.form-group textarea#contenu,
+.form-group textarea#editContenu {
+  min-height: 200px;
+}
+
+.create-button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 1rem;
+}
+
+.create-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(58, 134, 255, 0.2);
+}
+
+.create-button:active {
+  transform: translateY(0);
+}
+
+/* File uploads styling */
+input[type="file"] {
+  padding: 0.5rem 0;
+}
+
+.existing-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  background: var(--light);
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
 }
 
 .file-image {
-    max-width: 100%;
-    width:100px;
-    height: 50px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 0.5rem;
 }
 
 .file-icon {
-    font-size: 1.5rem;
-    color: #3498db;
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 
-.back-button {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.back-button:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
-.back-button:active {
-    transform: translateY(0);
-    background-color: #2573a7;
+/* Course Card Container - FIXED WIDTH to 800px */
+.course-card-container {
+  display: flex;
+  justify-content: center;
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
-/* Responsive design */
+/* Fix pour le modal d'édition */
+#editCourseModal.modal {
+  display: none;
+}
+
+#editCourseModal.modal[style*="display: block"] {
+  display: flex !important;
+  opacity: 1;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-    .courses-list {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 1.5rem;
-    }
-    
-    .page-title {
-        font-size: 2rem;
-    }
+  .courses-container {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .courses-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-content {
+    padding: 1.5rem;
+    width: 95%;
+  }
+  
+  .course-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .edit-button, .delete-button {
+    width: 100%;
+  }
+  
+  .course-card {
+    max-width: 100%;
+  }
+  
+  .course-card-container {
+    width: 100%;
+  }
 }
 
-@media (max-width: 480px) {
-    .courses-list {
-        grid-template-columns: 1fr;
-    }
-    
-    .course-card {
-        max-width: 100%;
-    }
-    
-    .page-title {
-        font-size: 1.75rem;
-    }
-    
-    .course-actions {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    
-    .edit-button, .delete-button {
-        width: 100%;
-        text-align: center;
-    }
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dark: #f1f5f9;
+    --light: #1e293b;
+    --gray: #94a3b8;
+    --light-gray: #334155;
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    --primary-light: #1e3a8a;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  }
+  
+  .course-card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+  
+  .course-actions {
+    background: #0f172a;
+    border-top-color: #334155;
+  }
+  
+  .edit-button {
+    background: #334155;
+    color: #f1f5f9;
+    border-color: #475569;
+  }
+  
+  .modal-content {
+    background: #1e293b;
+    border: 1px solid #334155;
+  }
+  
+  .close-button {
+    background: #334155;
+    color: #f1f5f9;
+  }
+  
+  .close-button:hover {
+    background: #475569;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: #0f172a;
+    color: #f1f5f9;
+    border-color: #334155;
+  }
+  
+  .success-message {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid var(--success);
+    color: var(--success);
+  }
+  
+  .modal-title {
+    border-bottom-color: var(--primary-light);
+  }
 }

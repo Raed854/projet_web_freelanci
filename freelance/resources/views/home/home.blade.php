@@ -130,23 +130,23 @@
         <h2 class="section__header">Rencontrez notre équipe</h2>
         <div class="travellers__grid">
             <div class="travellers__card__content">
-                <img src="{{asset('image/raed.jpg') }}" alt="client" />
-                <h4>Nefzi raed</h4>
+                <img src="{{asset('image/ilef.jpg') }}" alt="client" />
+                <h4>Ilef Benjabeur</h4>
                 <p>CEO</p>
             </div>
             <div class="travellers__card__content">
-                <img src="{{asset('image/bechir.jpg') }}" alt="client" />
-                <h4>Zarrouki bechir</h4>
+                <img src="{{asset('image/samar.jpg') }}" alt="client" />
+                <h4>Samar Jalleli</h4>
                 <p>Program Cordinator</p>
             </div>
             <div class="travellers__card__content">
-                <img src="{{asset('image/eya.jpg') }}" alt="client" />
-                <h4>Latiri eya</h4>
+                <img src="{{asset('image/amin.jpg') }}" alt="client" />
+                <h4>Amin Naser</h4>
                 <p>Public Relations</p>
             </div>
             <div class="travellers__card__content">
-                <img src="{{asset('image/mhimed.jpg') }}" alt="client" />
-                <h4>Langliz mahmoud</h4>
+                <img src="{{asset('image/rayen.jpg') }}" alt="client" />
+                <h4>Rayen Ben Aich</h4>
                 <p>Fundraising Officer</p>
             </div>
             <div class="travellers__card__content">

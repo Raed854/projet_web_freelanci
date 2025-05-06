@@ -6,9 +6,7 @@
 <link rel="stylesheet" href="{{ asset('css/affichageusers.css') }}">
 
 <div class="users-container">
-<div class="sidebar">
-        @include('composant.sidebar') 
-    </div>
+
     <div class="page-header">
         <h1 class="page-title">Users</h1>
        

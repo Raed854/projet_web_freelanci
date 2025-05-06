@@ -13,7 +13,11 @@ class CourseController extends Controller
         $courses = Course::all();
         return view('gestioncours.gestioncour', ['courses' => $courses]);
     }
-
+    public function index1()
+    {
+        $courses = Course::all();
+        return view('cours.cours', ['courses' => $courses]);
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
