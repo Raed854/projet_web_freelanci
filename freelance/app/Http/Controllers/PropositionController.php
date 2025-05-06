@@ -39,8 +39,9 @@ class PropositionController extends Controller
             'budget' => 'required|numeric',
             'date_creation' => 'required|date',
             'date_fin' => 'required|date|after_or_equal:date_creation',
-            'project_id'=>'required'
+            'project_id' => 'nullable|numeric|exists:projects,id',
         ]);
+        
 
         $proposition->update($validated);
 
@@ -49,8 +50,9 @@ class PropositionController extends Controller
 
     public function destroy(Proposition $proposition)
     {
+        $project_id=$proposition->project_id;
         $proposition->delete();
 
-        return redirect()->route('propositions.index')->with('success', 'Proposition deleted successfully.');
+        return redirect()->route('propositions.index', ['project_id' => $project_id])->with('success', 'Proposition created successfully.');
     }
 }

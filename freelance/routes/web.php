@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PropositionController;
 
@@ -67,3 +68,10 @@ Route::get('/cours', [CourseController::class, 'index1'])->name('cours.index');
 // Change the parameter binding to use project ID
 Route::get('projects/{project_id}/propositions', [PropositionController::class, 'index'])->name('propositions.index');
 Route::post('projects/{project_id}/propositions', [PropositionController::class, 'store'])->name('propositions.store');
+Route::get('/chat/{id}', [MessageController::class, 'showChat'])->name('chat.show');
+Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+Route::get('/chats/{chatId}/messages', [MessageController::class, 'index']); // Get messages for a specific chat
+Route::post('/chats/{chatId}/messages', [MessageController::class, 'store']); // Store a new message
+Route::get('/messages/{message}', [MessageController::class, 'show']); // Show a specific message
+Route::put('/messages/{message}', [MessageController::class, 'update']); // Update a message
+Route::delete('/messages/{message}', [MessageController::class, 'destroy']); // Delete a message

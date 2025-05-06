@@ -57,10 +57,6 @@
             <form id="chatForm{{ $proposition->id }}" action="{{ route('chat.store', $proposition->author_id) }}" method="POST" style="display: none;">
     @csrf
 </form>
-        @endforeach
-    </div>
-</div>
-
 <!-- Popup for editing proposition -->
 <div id="editPopup" class="popup" style="display:none;">
     <div class="popup-content">
@@ -80,11 +76,16 @@
             
             <label>Date de livraison :</label><br>
             <input type="date" id="editDateFin" name="date_fin" required><br>
-            <input type="number" id="project_id" name="project_id" required hidden>
+            <input type="number" id="project_id" name="project_id" value="{{$proposition->project_id}}"style="display: none;">
             <button type="submit">Enregistrer les modifications</button>
         </form>
     </div>
 </div>
+
+        @endforeach
+    </div>
+</div>
+
 
 <script>
     function startChat(user1, user2) {
@@ -102,8 +103,6 @@
     .then(response => response.json())
     .then(data => {
         console.log("Chat created:", data);
-        // Optional: redirect to the chat page
-        // window.location.href = `/chat/${data.id}`;
     })
     .catch(error => {
         console.error("Error creating chat:", error);
@@ -116,7 +115,6 @@
         document.getElementById('editBudget').value = proposition.budget;
         document.getElementById('editDateCreation').value = proposition.date_creation;
         document.getElementById('editDateFin').value = proposition.date_fin;
-        document.getElementById('project_id').value = proposition.project_id;
     }
 
     function closeEditPopup() {
