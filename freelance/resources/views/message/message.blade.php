@@ -20,9 +20,9 @@
     {{-- Liste des utilisateurs --}}
     <div class="user-list">
         <h4>Utilisateurs</h4>
-        @foreach($users as $user)
-            <div class="user-item {{ $user === $selectedUser ? 'active' : '' }}">
-                {{ $user }}
+        @foreach($chats as $chat)
+            <div class="user-item">
+                {{ $chat }}
             </div>
         @endforeach
     </div>
