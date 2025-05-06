@@ -39,11 +39,12 @@ class PropositionController extends Controller
             'budget' => 'required|numeric',
             'date_creation' => 'required|date',
             'date_fin' => 'required|date|after_or_equal:date_creation',
+            'project_id'=>'required'
         ]);
 
         $proposition->update($validated);
 
-        return redirect()->route('propositions.index')->with('success', 'Proposition updated successfully.');
+        return redirect()->route('propositions.index', ['project_id' => $validated['project_id']])->with('success', 'Proposition created successfully.');
     }
 
     public function destroy(Proposition $proposition)

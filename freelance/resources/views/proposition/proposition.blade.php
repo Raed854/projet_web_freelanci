@@ -39,9 +39,9 @@
     
     <div class="propositions-list">
         @foreach ($project->propositions as $proposition)
-        <div class="proposition-card" onclick="startChat({{ auth()->id() }}, {{ $proposition->author_id }})">
+        <div class="proposition-card">
                 <p><strong>Proposition:</strong> {{ $proposition->contenu }}</p>
-                <p><strong>Budget:</strong> {{ $proposition->budget }} TND</p>
+                <p onclick="startChat({{ auth()->id() }}, {{ $proposition->author_id }})"><strong>Budget:</strong> {{ $proposition->budget }} TND</p>
                 <p><strong>Début:</strong> {{ \Carbon\Carbon::parse($proposition->date_creation)->format('d/m/Y') }}</p>
                 <p><strong>Livraison:</strong> {{ \Carbon\Carbon::parse($proposition->date_fin)->format('d/m/Y') }}</p>
                 
@@ -80,7 +80,7 @@
             
             <label>Date de livraison :</label><br>
             <input type="date" id="editDateFin" name="date_fin" required><br>
-            
+            <input type="number" id="project_id" name="project_id" required hidden>
             <button type="submit">Enregistrer les modifications</button>
         </form>
     </div>
@@ -116,6 +116,7 @@
         document.getElementById('editBudget').value = proposition.budget;
         document.getElementById('editDateCreation').value = proposition.date_creation;
         document.getElementById('editDateFin').value = proposition.date_fin;
+        document.getElementById('project_id').value = proposition.project_id;
     }
 
     function closeEditPopup() {
