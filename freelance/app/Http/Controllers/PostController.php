@@ -51,7 +51,7 @@ class PostController extends Controller
                 Log::warning('No image file found in the request.');
             }
             $post = Post::create($validated);
-            return response()->json($post, 201);
+            return view('post.post', ['posts' => $posts]);
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {

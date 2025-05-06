@@ -40,9 +40,7 @@ Route::get('/projet', function () {
 Route::get('/proposition', function () {
     return view('proposition.proposition');
 })->name('proposition');
-Route::get('/message', function () {
-    return view('message.message');
-})->name('message');
+
 
 
 // CRUD routes for User model
@@ -54,7 +52,7 @@ Route::resource('posts', PostController::class);
 Route::resource('courses', CourseController::class);
 
 Route::resource('projects', ProjectController::class);
-
+Route::resource('message', ChatController::class);
 // CRUD routes for Proposition model
 Route::resource('propositions', PropositionController::class);
 Route::resource('chat', ChatController::class);

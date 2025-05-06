@@ -34,35 +34,46 @@ class UserController extends Controller
     {
         return view('users.edit', compact('user'));
     }
-
-    // Update the specified resource in storage
     public function update(Request $request, User $user)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
+        $validatedData = $request->validate([
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
+            'role' => 'required|string|in:client,freelancer,admin',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ], [
+            'email.unique' => 'This email is already taken.',
+            'password.confirmed' => 'The password confirmation does not match.',
         ]);
-
+    
+        $photoPath = $user->photo; // Keep existing photo path by default
+    
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
-            $photoDetails = [
+    
+            logger('Photo upload details:', [
                 'original_name' => $photo->getClientOriginalName(),
                 'mime_type' => $photo->getMimeType(),
                 'size' => $photo->getSize(),
-            ];
-            
-            logger('Photo upload details:', $photoDetails);
+            ]);
+    
+            $photoPath = $photo->store('photos', 'public');
         }
-
+    
         $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password ? Hash::make($request->password) : $user->password,
+            'nom' => $validatedData['nom'],
+            'prenom' => $validatedData['prenom'],
+            'email' => $validatedData['email'],
+            'password' => $validatedData['password'] ? Hash::make($validatedData['password']) : $user->password,
+            'role' => $validatedData['role'],
+            'photo' => $photoPath,
         ]);
-
+    
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
+    
 
     // Remove the specified resource from storage
     public function destroy(User $user)
