@@ -479,35 +479,149 @@ h4::after {
   margin-bottom: var(--space-4);
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  
   -webkit-box-orient: vertical;
   font-size: 0.95rem;
   line-height: 1.6;
 }
 
-/* Pied de carte */
-.card-footer {
-  background-color: rgba(249, 250, 251, 0.8);
-  padding: var(--space-4) var(--space-6);
-  font-size: 0.85rem;
-  color: var(--text-light);
-  border-top: 1px solid rgba(229, 231, 235, 0.7);
+.card-footer-modern {
+  padding: 14px 18px;
+  background-color: rgba(250, 250, 250, 0.9);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0 0 12px 12px;
+}
+
+/* Date Badge */
+.date-badge {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  transition: var(--transition-medium);
+  background-color: #f0f4f8;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #546e7a;
+  transition: all 0.25s ease;
 }
 
-.card:hover .card-footer {
-  background-color: rgba(245, 247, 250, 1);
+.date-badge:hover {
+  background-color: #e3f2fd;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
-/* Badge de date */
-.card-footer::before {
-  content: '📅';
-  margin-right: var(--space-2);
+.date-icon {
+  margin-right: 6px;
+  opacity: 0.7;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 16px;
+  border-radius: 8px;
+  border: none;
   font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  position: relative;
 }
+
+.btn-action i {
+  margin-right: 8px;
+  font-size: 0.95rem;
+}
+
+.btn-edit {
+  background-color: #ffecb3;
+  color: #ff8f00;
+}
+
+.btn-edit:hover {
+  background-color: #ffe082;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(255, 143, 0, 0.2);
+}
+
+.btn-delete {
+  background-color: #ffebee;
+  color: #e53935;
+}
+
+.btn-delete:hover {
+  background-color: #ffcdd2;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(229, 57, 53, 0.2);
+}
+
+/* Tooltip */
+.btn-action[data-tooltip]:before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-5px);
+  background-color: rgba(33, 33, 33, 0.9);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
+
+.btn-action[data-tooltip]:after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(33, 33, 33, 0.9) transparent transparent transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
+
+.btn-action[data-tooltip]:hover:before,
+.btn-action[data-tooltip]:hover:after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-10px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+  .card-footer-modern {
+      flex-direction: column;
+      gap: 12px;
+  }
+  
+  .date-badge {
+      align-self: flex-start;
+  }
+  
+  .action-buttons {
+      align-self: stretch;
+  }
+  
+  .btn-action {
+      flex: 1;
+      justify-content: center;
+  }
+}
+
 
 /* Alertes stylisées */
 .alert {

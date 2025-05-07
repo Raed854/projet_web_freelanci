@@ -66,11 +66,25 @@ class ChatController extends Controller
             $query->where('user1_id', $validated['user2_id'])
                   ->where('user2_id', $validated['user1_id']);
         })->first();
-        \Log::info('Existing chat:', ['chat' => $existingChat]);
         if (!$existingChat) {
             Chat::create($validated);
         }
-        return redirect('/message');
+        $userId = auth()->id();
+    
+        $chats = Chat::where('user1_id', $userId)
+                    ->orWhere('user2_id', $userId)
+                    ->with(['user1', 'user2']) // Charger les utilisateurs liés
+                    ->get()
+                    ->map(function ($chat) use ($userId) {
+                        $otherUser = $chat->user1_id == $userId ? $chat->user2 : $chat->user1;
+                        
+                        // Vérifie si nom et prénom existent pour éviter erreur
+                        $chat->other_user_full_name = $otherUser->nom . ' ' . $otherUser->prenom;
+    
+                        return $chat;
+                    });
+    
+        return view('message.message', ['chats' => $chats]);
     }
     
     

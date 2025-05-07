@@ -34,29 +34,43 @@
         <div id="searchResultsCount" class="small text-muted mt-1"></div>
     </div>
 
-    <!-- Affichage de posts dynamiques -->
-    <div class="mt-5">
-        <h4>Liste des Posts</h4>
+   <!-- Affichage de posts dynamiques -->
+<div class="mt-5">
+    <h4>Liste des Posts</h4>
 
-        <div class="row" id="postsContainer">
-            @foreach ($posts as $post)
-                <div class="col-md-4 mb-4 post-card" data-title="{{ strtolower($post->titre) }}">
-                    <div class="card h-100">
-                        @if($post->image)
-                        <img src="{{ asset('/storage/' . $post->image) }}" class="card-img-top" alt="Image du post">
-                        @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $post->titre }}</h5>
-                            <p class="card-text">{{ $post->contenu }}</p>
-                        </div>
-                        <div class="card-footer text-muted">
-                            Créé le {{ $post->created_at->format('d/m/Y') }}
-                        </div>
+    <div class="row" id="postsContainer">
+        @foreach ($posts as $post)
+            <div class="col-md-4 mb-4 post-card" data-title="{{ strtolower($post->titre) }}">
+                <div class="card h-100">
+                    @if($post->image)
+                    <img src="{{ asset('/storage/' . $post->image) }}" class="card-img-top" alt="Image du post">
+                    @endif
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $post->titre }}</h5>
+                        <p class="card-text">{{ $post->contenu }}</p>
                     </div>
-                </div>
-            @endforeach
-        </div>
+                    <div class="card-footer-modern d-flex justify-content-between align-items-center">
+    <div class="date-badge">
+        <span class="date-icon"><i class="far fa-calendar-alt"></i></span>
+        <span class="date-text">{{ $post->created_at->format('d/m/Y') }}</span>
     </div>
+    <div class="action-buttons">
+        <button onclick class="btn-action btn-edit" data-tooltip="Modifier cet article">
+            <i class="fas fa-pen"></i>
+            <span>Modifier</span>
+        </a>
+        <button type="button" class="btn-action btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $post->id }}" data-tooltip="Supprimer cet article">
+            <i class="fas fa-trash"></i>
+            <span>Supprimer</span>
+        </button>
+    </div>
+</div>
+
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
 
     <!-- Pagination -->
     <div id="pagination" class="mt-4 d-flex justify-content-center">
@@ -184,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialisation
     displayPosts();
 });
+
 </script>
 
 @endsection

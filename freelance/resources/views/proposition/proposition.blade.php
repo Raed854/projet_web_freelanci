@@ -180,24 +180,17 @@
     // Vos autres fonctions existantes
     function startChat(user1, user2) {
         fetch("{{ route('chat.store') }}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: JSON.stringify({
-                user1_id: user1,
-                user2_id: user2
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Chat created:", data);
-            alert('the chat has been created check it out');
-        })
-        .catch(error => {
-            console.error("Error creating chat:", error);
-        });
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+    },
+    body: JSON.stringify({
+        user1_id: user1,
+        user2_id: user2
+    })
+    });
+    window.location.href ='/message';
     }
 
     function openEditPopup(proposition) {
