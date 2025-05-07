@@ -57,10 +57,23 @@ class ChatController extends Controller
             'user1_id' => 'required|exists:users,id',
             'user2_id' => 'required|exists:users,id',
         ]);
-
-        $chat = Chat::create($validated);
-        return response()->json($chat, 201);
-    }
+    
+        // Check for existing chat between the same two users (in either order)
+        $existingChat = Chat::where(function ($query) use ($validated) {
+            $query->where('user1_id', $validated['user1_id'])
+                  ->where('user2_id', $validated['user2_id']);
+        })->orWhere(function ($query) use ($validated) {
+            $query->where('user1_id', $validated['user2_id'])
+                  ->where('user2_id', $validated['user1_id']);
+        })->first();
+    
+        if (!$existingChat) {
+            Chat::create($validated);
+        }
+        return redirect('/message');
+                }
+    
+    
 
     public function show(Chat $chat)
     {

@@ -5,11 +5,11 @@
 <div class="propositions-container">
     <h1 class="page-title">Vos Propositions</h1>
     
-    <!-- Bouton pour afficher le formulaire -->
+    @if(Auth::user()->role=="freelancer") 
     <button onclick="toggleForm()" class="show-form-button">
         <span>Faire une proposition</span>
     </button>
-    
+    @endif
     <!-- Overlay pour le fond sombre -->
     <div id="overlay" class="overlay"></div>
     

@@ -62,7 +62,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             session(['user_id' => $user->id]);
-            if($user->role){
+            if($user->role!='admin'){
             return redirect()->intended('/post')->with('success', 'You are logged in!');
             }else{
             return redirect()->intended('/users')->with('success', 'You are logged in!');
@@ -82,5 +82,9 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/')->with('success', 'You have been logged out!');
+    }
+    public function create()
+    {
+        return view('users.create');
     }
 }

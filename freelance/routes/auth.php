@@ -17,9 +17,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', function () {
         return view('login.login');
     })->name('login');
-    Route::post('/signup', [AuthController::class, 'store'])->name('signup.store');
+    Route::post('/create', [AuthController::class, 'store'])->name('signup.store');
     Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-
+    Route::get('/signup', [AuthController::class, 'create'])->name('login.signup');
 });
 
 Route::middleware('auth')->group(function () {
@@ -52,8 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('message', ChatController::class);
     // CRUD routes for Proposition model
     Route::resource('propositions', PropositionController::class);
-    Route::resource('chat', ChatController::class);
-
+    Route::get('chat', [ChatController::class,'index'])->name('chat.index');
+    Route::post('chatstore', [ChatController::class,'store'])->name('chat.store');
     Route::get('/authors', [PostController::class, 'getAuthors'])->name('authors.index');
     
     Route::get('/courses/{id}', [CourseController::class, 'show'])->name('course.show');

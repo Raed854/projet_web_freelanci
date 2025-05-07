@@ -36,7 +36,7 @@
                 </div>
                 
                 <div class="text-center mt-3">
-                <a href="{{ route('users.create') }}" class="btn-create">Create User</a>
+                <a href="{{ route('login.signup') }}" class="btn-create">Create User</a>
                 </div>
             </form>
         </div>

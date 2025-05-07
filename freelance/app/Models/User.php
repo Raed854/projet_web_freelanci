@@ -69,5 +69,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'sender_id');
     }
-
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+    public function isClient()
+    {
+        return $this->role === 'client';
+    }
+    public function isFreelancer()
+    {
+        return $this->role === 'freelance';
+    }
 }

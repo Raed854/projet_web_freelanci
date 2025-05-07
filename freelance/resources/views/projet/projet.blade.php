@@ -6,7 +6,7 @@
 <div class="posts-container">
     <h1 class="page-title">Projet</h1>
 
-    <!-- Formulaire de création de projet -->
+    @if(Auth::user()->role=="client") 
     <div class="post-form">
         <h2>Créer un nouveau Projet</h2>
         <form action="{{ route('projects.store') }}" method="POST">
@@ -23,7 +23,7 @@
             <button type="submit">Créer le Projet</button>
         </form>
     </div>
-
+    @endif
     <!-- Liste des projets -->
     <div class="posts-list" id="projects-container">
         @foreach ($projects as $project)
