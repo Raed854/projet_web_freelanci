@@ -248,6 +248,9 @@
             font-size: 11px;
             margin-left: auto;
         }
+        a {
+    text-decoration: none;
+    }
     </style>
 </head>
 <body>
@@ -280,29 +283,31 @@
             </div>
 
             <ul class="sidebar-menu">
+                <a href="{{ route('projects.index') }}">
                 <li class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
                     <i class="fas fa-project-diagram"></i> <span>Projets</span>
                 </li>
+                </a>
+                <a href="{{ route('post.show') }}">
                 <li class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">
                     <i class="fas fa-file-alt"></i> <span>Posts</span>
                 </li>
+                </a>
+                <a href="{{ route('cours.index') }}">
                 <li class="{{ request()->routeIs('courses.*') ? 'active' : '' }}">
                     <i class="fas fa-book"></i> <span>Cours</span>
-                    <span class="badge">New</span>
                 </li>
+                </a>
+                <a href="{{ route('message.index') }}">
                 <li class="{{ request()->routeIs('messages.*') ? 'active' : '' }}">
                     <i class="fas fa-envelope"></i> <span>Messages</span>
-                    <span class="badge">3</span>
                 </li>
-                <li class="{{ request()->routeIs('propositions.*') ? 'active' : '' }}">
-                    <i class="fas fa-lightbulb"></i> <span>Propositions</span>
+                </a>
+                <a href="{{ route('login.logout') }}">
+                <li class="{{ request()->routeIs('messages.*') ? 'active' : '' }}">
+                     <span>Log out</span>
                 </li>
-                <li>
-                    <i class="fas fa-chart-line"></i> <span>Statistiques</span>
-                </li>
-                <li>
-                    <i class="fas fa-cog"></i> <span>Paramètres</span>
-                </li>
+                </a>
             </ul>
         </div>
 

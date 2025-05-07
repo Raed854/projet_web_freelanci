@@ -61,9 +61,12 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = Auth::user();
-            session(['user_id' => $user->id]); // Save the user ID in the session
-
-            return redirect()->intended('/')->with('success', 'You are logged in!');
+            session(['user_id' => $user->id]);
+            if($user->role){
+            return redirect()->intended('/post')->with('success', 'You are logged in!');
+            }else{
+            return redirect()->intended('/users')->with('success', 'You are logged in!');
+            }
         }
 
         return back()->withErrors([

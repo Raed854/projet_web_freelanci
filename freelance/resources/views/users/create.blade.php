@@ -1,6 +1,5 @@
-@extends('layouts.app')
 
-@section('content')
+
 <link rel="stylesheet" href="{{ asset('css/creat.css') }}">
 <div class="container">
     <h1>Create Your Account</h1>
@@ -96,4 +95,3 @@
         strengthBar.className = 'password-strength-bar strength-' + strength;
     });
 </script>
-@endsection
