@@ -110,4 +110,6 @@ class PostController extends Controller
         $users = User::all(['id', 'nom', 'prenom']);
         return response()->json($users);
     }
+ 
+    
 }

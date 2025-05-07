@@ -25,7 +25,7 @@
     </div>
 
     <!-- Liste des projets -->
-    <div class="posts-list">
+    <div class="posts-list" id="projects-container">
         @foreach ($projects as $project)
             <div class="post-card">
                 <a href="{{ route('propositions.index', $project->id) }}" class="post-card-link">
@@ -50,6 +50,9 @@
             </div>
         @endforeach
     </div>
+
+    <!-- Conteneur de pagination -->
+    <div id="pagination-container" class="pagination"></div>
 </div>
 
 <!-- Popup amélioré pour l'édition de projet -->
@@ -88,18 +91,50 @@
 </div>
 
 <script>
-// Script amélioré pour gérer le popup d'édition
+// Pagination
+const projects = Array.from(document.querySelectorAll('.post-card'));
+const itemsPerPage = 1;  // Nombre d'éléments par page
+let currentPage = 1;
+
+function displayPage(page) {
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentPageProjects = projects.slice(startIndex, endIndex);
+
+    // Vider le conteneur de projets
+    const projectsContainer = document.getElementById('projects-container');
+    projectsContainer.innerHTML = '';
+    currentPageProjects.forEach(project => {
+        projectsContainer.appendChild(project);
+    });
+
+    // Mettre à jour les boutons de pagination
+    const paginationContainer = document.getElementById('pagination-container');
+    paginationContainer.innerHTML = '';  // Vider les anciens boutons
+    const totalPages = Math.ceil(projects.length / itemsPerPage);
+    for (let i = 1; i <= totalPages; i++) {
+        const button = document.createElement('button');
+        button.classList.add('page-button');
+        button.textContent = i;
+        button.onclick = () => {
+            currentPage = i;
+            displayPage(currentPage);
+        };
+        paginationContainer.appendChild(button);
+    }
+}
+
+displayPage(currentPage);
+
+// Popup d'édition
 function openEditPopup(project) {
-    // Récupérer le popup et ajouter la classe active
     const popup = document.getElementById('editPopup');
     popup.style.display = 'flex';
     
-    // Ajouter une classe active après un court délai pour l'animation
     setTimeout(() => {
         popup.classList.add('active');
     }, 10);
     
-    // Configurer le formulaire avec les données du projet
     document.getElementById('editForm').action = `/projects/${project.id}`;
     document.getElementById('editName').value = project.name;
     document.getElementById('editDescription').value = project.description;
@@ -107,35 +142,28 @@ function openEditPopup(project) {
     document.getElementById('editEndDate').value = project.end_date || '';
     document.getElementById('editStatus').value = project.status;
     
-    // Empêcher le défilement du corps
     document.body.style.overflow = 'hidden';
 }
 
 function closeEditPopup() {
-    // Récupérer le popup et supprimer la classe active
     const popup = document.getElementById('editPopup');
     popup.classList.remove('active');
     
-    // Cacher le popup après la fin de l'animation
     setTimeout(() => {
         popup.style.display = 'none';
     }, 300);
     
-    // Réactiver le défilement du corps
     document.body.style.overflow = '';
 }
 
-// Fermer le popup en cliquant à l'extérieur du contenu
 document.addEventListener('DOMContentLoaded', function() {
     const popup = document.getElementById('editPopup');
-    
     popup.addEventListener('click', function(event) {
         if (event.target === popup) {
             closeEditPopup();
         }
     });
-    
-    // Ajouter un gestionnaire d'événements pour la touche Echap
+
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape' && popup.style.display === 'flex') {
             closeEditPopup();
@@ -143,4 +171,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
 @endsection
