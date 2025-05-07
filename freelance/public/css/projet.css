@@ -671,3 +671,114 @@ button:hover {
     text-decoration: none;
     color: inherit;
 }
+/* Conteneur de pagination avec alignement et espacement */
+#pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: var(--space-8) 0;
+    gap: var(--space-2);
+  }
+  
+  /* Style de base pour les boutons de pagination */
+  #pagination-container .btn {
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: var(--transition-medium);
+    position: relative;
+    overflow: hidden;
+    border: none;
+    background: white;
+    color: var(--text-color);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(229, 231, 235, 0.7);
+  }
+  
+  /* État actif pour le bouton de la page courante */
+  #pagination-container .btn.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  /* Effet de survol pour les boutons */
+  #pagination-container .btn:hover:not(.active) {
+    background: var(--bg-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  /* Effet au clic */
+  #pagination-container .btn:active {
+    transform: translateY(0);
+  }
+  
+  /* Effet d'ondulation sur les boutons */
+  #pagination-container .btn::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.5s, opacity 0.5s;
+  }
+  
+  #pagination-container .btn:active::after {
+    transform: scale(2);
+    opacity: 0;
+    transition: 0s;
+  }
+  
+  /* Animation d'entrée pour la pagination */
+  @keyframes paginationEntrance {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  #pagination-container {
+    animation: paginationEntrance 0.5s ease-out forwards;
+  }
+  
+  /* Boutons de navigation (précédent/suivant) */
+  #pagination-container .btn-nav {
+    font-size: 1.2rem;
+    padding: 0;
+  }
+  
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    #pagination-container .btn {
+      background-color: #1f2937;
+      border-color: rgba(55, 65, 81, 0.7);
+      color: var(--text-light);
+    }
+    
+    #pagination-container .btn:hover:not(.active) {
+      background-color: #374151;
+    }
+  }
+  
+  /* Responsive design pour petits écrans */
+  @media (max-width: 768px) {
+    #pagination-container .btn {
+      min-width: 36px;
+      height: 36px;
+      font-size: 0.9rem;
+    }
+  }

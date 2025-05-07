@@ -292,4 +292,144 @@
   #deleteModal .cancel-button:hover {
     background: var(--light-gray);
   }
-  
+  /* Conteneur de la pagination */
+#pagination {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+/* Boutons de pagination */
+.page-btn {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Bouton de pagination actif */
+.page-btn.active {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+/* Effet au survol des boutons */
+.page-btn:hover {
+    background-color: #ddd;
+}
+
+/* Effet de focus pour les boutons */
+.page-btn:focus {
+    outline: none;
+    background-color: #bbb;
+}
+
+/* Styles pour désactiver les boutons (si nécessaire) */
+.page-btn.disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+/* Barre de recherche innovante */
+.search-container {
+    margin: 2rem auto;
+    position: relative;
+    max-width: 600px;
+    transition: all 0.3s ease;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 15px 50px 15px 20px;
+    border-radius: 50px;
+    border: 2px solid #e0e0e0;
+    background-color: #f8f9fa;
+    font-size: 1rem;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+#searchInput:focus {
+    border-color: #4a6cf7;
+    box-shadow: 0 8px 20px rgba(74, 108, 247, 0.15);
+    outline: none;
+}
+
+.search-container::after {
+    content: '🔍';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.search-container:focus-within::after {
+    color: #4a6cf7;
+}
+
+/* Animation pour la recherche active */
+.search-container:focus-within {
+    transform: scale(1.02);
+}
+
+/* Badge de recherche active */
+.search-active-badge {
+    display: none;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #4a6cf7;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(74, 108, 247, 0.7);
+    }
+    
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(74, 108, 247, 0);
+    }
+    
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(74, 108, 247, 0);
+    }
+}
+
+/* Style pour afficher le nombre de résultats */
+.search-results-counter {
+    position: absolute;
+    left: 20px;
+    top: calc(100% + 10px);
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Responsive design pour la barre de recherche */
+@media (max-width: 768px) {
+    .search-container {
+        max-width: 100%;
+    }
+}
