@@ -66,12 +66,12 @@ class ChatController extends Controller
             $query->where('user1_id', $validated['user2_id'])
                   ->where('user2_id', $validated['user1_id']);
         })->first();
-    
+        \Log::info('Existing chat:', ['chat' => $existingChat]);
         if (!$existingChat) {
             Chat::create($validated);
         }
         return redirect('/message');
-                }
+    }
     
     
 

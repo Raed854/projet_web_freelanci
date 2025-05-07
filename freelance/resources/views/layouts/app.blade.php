@@ -315,7 +315,7 @@
                     <i class="fas fa-file-alt"></i> <span>gestion Posts</span>
                 </li>
                 </a>
-                <a href="{{ route('cours.index') }}">
+                <a href="{{ route('courses.index') }}">
                 <li class="{{ request()->routeIs('cours.*') ? 'active' : '' }}">
                     <i class="fas fa-book"></i> <span>gestion Cours</span>
                 </li>

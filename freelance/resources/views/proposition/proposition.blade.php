@@ -46,17 +46,18 @@
         @foreach ($project->propositions as $proposition)
         <div class="proposition-card" data-contenu="{{ $proposition->contenu }}" data-budget="{{ $proposition->budget }}">
                 <p><strong>Proposition:</strong> <span class="proposition-contenu">{{ $proposition->contenu }}</span></p>
-                <p onclick="startChat({{ auth()->id() }}, {{ $proposition->author_id }})"><strong>Budget:</strong> <span class="proposition-budget">{{ $proposition->budget }}</span> TND</p>
+                <p><strong>Budget:</strong> <span class="proposition-budget">{{ $proposition->budget }}</span> TND</p>
                 <p><strong>Début:</strong> {{ \Carbon\Carbon::parse($proposition->date_creation)->format('d/m/Y') }}</p>
                 <p><strong>Livraison:</strong> {{ \Carbon\Carbon::parse($proposition->date_fin)->format('d/m/Y') }}</p>
                 
                 <div class="card-actions">
-                    <button onclick="openEditPopup({{ $proposition }})" class="edit-button">Modifier</button>
+                    <button onclick="openEditPopup({{ $proposition }})" class="edit-button"></button>
                     <form action="{{ route('propositions.destroy', $proposition) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="delete-button">Supprimer</button>
+                        <button type="submit" class="delete-button"></button>
                     </form>
+                    <button class="message-btn" onclick="startChat({{ auth()->id() }}, {{ $proposition->author_id }})">Message</button>
                 </div>
             </div>
             <form id="chatForm{{ $proposition->id }}" action="{{ route('chat.store', $proposition->author_id) }}" method="POST" style="display: none;">
@@ -192,6 +193,7 @@
         .then(response => response.json())
         .then(data => {
             console.log("Chat created:", data);
+            alert('the chat has been created check it out');
         })
         .catch(error => {
             console.error("Error creating chat:", error);

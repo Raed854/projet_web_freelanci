@@ -64,7 +64,6 @@
                     messageElement.appendChild(textElement);
 
                     if (message.sender_id === {{ auth()->id() }}) {
-                        console.log(message.id);
                         const editBtn = document.createElement('button');
                         editBtn.innerText = 'Modifier';
                         editBtn.onclick = () => editMessage(message.id, message.text);
