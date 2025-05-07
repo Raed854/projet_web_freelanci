@@ -1,4 +1,4 @@
-@extends('layouts.app') <!-- Adapté à votre layout -->
+@extends('layouts.app')
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/post.css') }}">
@@ -31,6 +31,7 @@
     <!-- Recherche par titre -->
     <div class="mt-4">
         <input type="text" id="searchInput" class="form-control" placeholder="Rechercher par titre...">
+        <div id="searchResultsCount" class="small text-muted mt-1"></div>
     </div>
 
     <!-- Affichage de posts dynamiques -->
@@ -39,9 +40,11 @@
 
         <div class="row" id="postsContainer">
             @foreach ($posts as $post)
-                <div class="col-md-4 mb-4 post-card">
+                <div class="col-md-4 mb-4 post-card" data-title="{{ strtolower($post->titre) }}">
                     <div class="card h-100">
+                        @if($post->image)
                         <img src="{{ asset('/storage/' . $post->image) }}" class="card-img-top" alt="Image du post">
+                        @endif
                         <div class="card-body">
                             <h5 class="card-title">{{ $post->titre }}</h5>
                             <p class="card-text">{{ $post->contenu }}</p>
@@ -57,67 +60,130 @@
 
     <!-- Pagination -->
     <div id="pagination" class="mt-4 d-flex justify-content-center">
-        <!-- Pagination buttons will be generated dynamically -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item disabled" id="prevPage">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#" data-page="1">1</a></li>
+                <li class="page-item" id="nextPage">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
-
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const searchInput = document.getElementById('searchInput');
-        const postsContainer = document.getElementById('postsContainer');
-        const postCards = Array.from(postsContainer.getElementsByClassName('post-card'));
-        const paginationContainer = document.getElementById('pagination');
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const postsContainer = document.getElementById('postsContainer');
+    const postCards = Array.from(document.querySelectorAll('.post-card'));
+    const paginationContainer = document.getElementById('pagination');
+    const prevPageBtn = document.getElementById('prevPage');
+    const nextPageBtn = document.getElementById('nextPage');
+    const searchResultsCount = document.getElementById('searchResultsCount');
 
-        const itemsPerPage = 3; // Nombre de posts par page
-        let filteredPosts = postCards; // Initially all posts are displayed
-        const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
-        let currentPage = 1;
+    // Configuration
+    const itemsPerPage = 3;
+    let currentPage = 1;
+    let filteredPosts = postCards;
 
-        // Fonction pour afficher les posts d'une page
-        function showPage(page) {
-            const start = (page - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            filteredPosts.forEach(post => post.style.display = 'none');
-            for (let i = start; i < end; i++) {
-                if (filteredPosts[i]) {
-                    filteredPosts[i].style.display = 'block';
-                }
-            }
-        }
-
-        // Fonction pour générer les boutons de pagination
-        function generatePagination() {
-            paginationContainer.innerHTML = '';  // Réinitialise les boutons de pagination
-
-            const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
-            for (let i = 1; i <= totalPages; i++) {
-                const pageButton = document.createElement('button');
-                pageButton.innerText = i;
-                pageButton.classList.add('btn', 'btn-outline-primary', 'mx-1');
-                pageButton.addEventListener('click', function () {
-                    currentPage = i;
-                    showPage(currentPage);
-                });
-                paginationContainer.appendChild(pageButton);
-            }
-        }
-
-        // Fonction pour la recherche par titre
-        searchInput.addEventListener('input', function () {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            filteredPosts = postCards.filter(post => {
-                const title = post.querySelector('.card-title').textContent.toLowerCase();
-                return title.includes(searchTerm);
-            });
-            generatePagination();
-            showPage(currentPage);
+    // Fonction pour afficher les posts
+    function displayPosts() {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        
+        // Masquer tous les posts
+        postCards.forEach(post => post.style.display = 'none');
+        
+        // Afficher les posts filtrés pour la page courante
+        filteredPosts.slice(startIndex, endIndex).forEach(post => {
+            post.style.display = 'block';
         });
+        
+        // Mettre à jour le compteur de résultats
+        searchResultsCount.textContent = `${filteredPosts.length} résultat(s) trouvé(s)`;
+        
+        // Mettre à jour la pagination
+        updatePagination();
+    }
 
-        // Initialiser la pagination et afficher la première page
-        generatePagination();
-        showPage(currentPage);
+    // Fonction pour mettre à jour la pagination
+    function updatePagination() {
+        const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+        const paginationList = paginationContainer.querySelector('.pagination');
+        
+        // Nettoyer les boutons de page existants (sauf Previous et Next)
+        while (paginationList.children.length > 2) {
+            paginationList.removeChild(paginationList.children[1]);
+        }
+        
+        // Ajouter les boutons de page
+        for (let i = 1; i <= totalPages; i++) {
+            const pageItem = document.createElement('li');
+            pageItem.className = `page-item ${i === currentPage ? 'active' : ''}`;
+            
+            const pageLink = document.createElement('a');
+            pageLink.className = 'page-link';
+            pageLink.href = '#';
+            pageLink.textContent = i;
+            pageLink.dataset.page = i;
+            
+            pageLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                currentPage = parseInt(this.dataset.page);
+                displayPosts();
+            });
+            
+            pageItem.appendChild(pageLink);
+            paginationList.insertBefore(pageItem, nextPageBtn);
+        }
+        
+        // Activer/désactiver les boutons Previous/Next
+        prevPageBtn.classList.toggle('disabled', currentPage === 1);
+        nextPageBtn.classList.toggle('disabled', currentPage === totalPages || totalPages === 0);
+    }
+
+    // Gestion des événements de pagination
+    prevPageBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (currentPage > 1) {
+            currentPage--;
+            displayPosts();
+        }
     });
+
+    nextPageBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            displayPosts();
+        }
+    });
+
+    // Fonction de recherche
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        
+        filteredPosts = postCards.filter(post => {
+            const title = post.dataset.title;
+            return title.includes(searchTerm);
+        });
+        
+        // Revenir à la première page après une recherche
+        currentPage = 1;
+        displayPosts();
+    });
+
+    // Initialisation
+    displayPosts();
+});
 </script>
 
 @endsection

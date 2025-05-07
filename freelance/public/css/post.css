@@ -1086,3 +1086,161 @@ h4::after {
   cursor: not-allowed;
   opacity: 0.5;
 }
+/* Pagination améliorée pour correspondre à la structure Bootstrap utilisée */
+#pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+#pagination .pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: var(--space-2);
+}
+
+#pagination .page-item {
+  display: inline-block;
+}
+
+#pagination .page-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(229, 231, 235, 0.7);
+  background: white;
+  color: var(--text-color);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-medium);
+}
+
+#pagination .page-item.active .page-link {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-dark);
+}
+
+#pagination .page-link:hover:not(.disabled .page-link) {
+  background: var(--bg-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+#pagination .page-link:active {
+  transform: translateY(0);
+}
+
+/* Effet d'ondulation sur les boutons de pagination */
+#pagination .page-link::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+#pagination .page-link:active::after {
+  transform: scale(2);
+  opacity: 0;
+  transition: 0s;
+}
+
+#pagination .page-item.disabled .page-link {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Animation d'entrée pour la pagination */
+@keyframes paginationEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#pagination {
+  animation: paginationEntrance 0.5s ease-out forwards;
+}
+
+/* Support du mode sombre */
+@media (prefers-color-scheme: dark) {
+  #pagination .page-link {
+    background-color: #1f2937;
+    border-color: rgba(55, 65, 81, 0.7);
+    color: var(--text-light);
+  }
+  
+  #pagination .page-link:hover:not(.disabled .page-link) {
+    background-color: #374151;
+  }
+}
+
+/* Responsive design pour petits écrans */
+@media (max-width: 768px) {
+  #pagination .page-link {
+    min-width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+    padding: var(--space-1) var(--space-2);
+  }
+}
+
+/* Style amélioré pour le champ de recherche */
+#searchInput {
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  border-radius: 50px;
+  border: 2px solid rgba(229, 231, 235, 0.7);
+  background-color: white;
+  font-size: 1rem;
+  color: var(--text-color);
+  transition: var(--transition-medium);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-4);
+}
+
+#searchInput:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+  outline: none;
+  transform: scale(1.01);
+}
+
+#searchResultsCount {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: var(--space-6);
+  font-style: italic;
+}
+
+/* Support du mode sombre pour la recherche */
+@media (prefers-color-scheme: dark) {
+  #searchInput {
+    background-color: #374151;
+    border-color: rgba(55, 65, 81, 0.7);
+    color: var(--text-light);
+  }
+}
