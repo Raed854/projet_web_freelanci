@@ -2,13 +2,12 @@
 
 @section('content')
 @php
-    // The chat messages will be dynamically fetched from the database
     $selectedUser = '';
 @endphp
 
 <div class="messenger-container">
     <link href="{{ asset('css/message.css') }}" rel="stylesheet">
-    
+
     {{-- Liste des utilisateurs --}}
     <div class="user-list">
         <h4>Utilisateurs</h4>
@@ -26,7 +25,7 @@
         </div>
 
         <div class="chat-messages" id="chat-messages">
-            {{-- Messages will be dynamically loaded here from the database --}}
+            {{-- Messages will be dynamically loaded here --}}
         </div>
 
         <div class="chat-footer">
@@ -41,31 +40,42 @@
 <script>
     let currentChatId = null;
 
-    // Function to start a chat with a user (fetch messages for this chat)
     function startChat(chatId, userName) {
         currentChatId = chatId;
         document.getElementById('chat-header').innerText = 'Conversation avec ' + userName;
-
-        // Clear existing messages
         document.getElementById('chat-messages').innerHTML = '';
-
-        // Fetch messages for this chat
         fetchMessages(currentChatId);
     }
 
-    // Fetch messages using an AJAX call
     function fetchMessages(chatId) {
         fetch(`/chats/${chatId}/messages`)
             .then(response => response.json())
             .then(data => {
                 const messagesContainer = document.getElementById('chat-messages');
-                messagesContainer.innerHTML = '';  // Clear previous messages
+                messagesContainer.innerHTML = '';
 
                 data.messages.forEach(message => {
                     const messageElement = document.createElement('div');
                     messageElement.classList.add('message');
                     messageElement.classList.add(message.sender_id === {{ auth()->id() }} ? 'sent' : 'received');
-                    messageElement.innerText = message.text;
+
+                    const textElement = document.createElement('span');
+                    textElement.innerText = message.text;
+                    messageElement.appendChild(textElement);
+
+                    if (message.sender_id === {{ auth()->id() }}) {
+                        console.log(message.id);
+                        const editBtn = document.createElement('button');
+                        editBtn.innerText = 'Modifier';
+                        editBtn.onclick = () => editMessage(message.id, message.text);
+
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.innerText = 'Supprimer';
+                        deleteBtn.onclick = () => deleteMessage(message.id);
+
+                        messageElement.appendChild(editBtn);
+                        messageElement.appendChild(deleteBtn);
+                    }
 
                     messagesContainer.appendChild(messageElement);
                 });
@@ -75,8 +85,7 @@
             });
     }
 
-    // Send a new message
-    document.getElementById('send-message-button').addEventListener('click', function() {
+    document.getElementById('send-message-button').addEventListener('click', function () {
         const messageInput = document.getElementById('message-input');
         const messageText = messageInput.value;
 
@@ -84,14 +93,10 @@
             return;
         }
 
-        // Send message to the backend
         sendMessage(currentChatId, messageText);
-
-        // Clear the input field
         messageInput.value = '';
     });
 
-    // Send the message using AJAX
     function sendMessage(chatId, messageText) {
         fetch(`/chats/${chatId}/messages`, {
             method: 'POST',
@@ -106,13 +111,50 @@
         })
         .then(response => response.json())
         .then(data => {
-            // After sending the message, update the chat
             fetchMessages(chatId);
         })
         .catch(error => {
             console.error('Error sending message:', error);
         });
     }
-</script>
 
+    function editMessage(messageId, oldText) {
+        const newText = prompt('Modifier le message:', oldText);
+        if (newText && newText !== oldText) {
+            fetch(`/messages/${messageId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ text: newText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                fetchMessages(currentChatId);
+            })
+            .catch(error => {
+                console.error('Erreur lors de la modification du message:', error);
+            });
+        }
+    }
+
+    function deleteMessage(messageId) {
+        if (confirm('Êtes-vous sûr de vouloir supprimer ce message ?')) {
+            fetch(`/messages/${messageId}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                fetchMessages(currentChatId);
+            })
+            .catch(error => {
+                console.error('Erreur lors de la suppression du message:', error);
+            });
+        }
+    }
+</script>
 @endsection

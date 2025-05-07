@@ -28,7 +28,10 @@
             </ul>
         </div>
     @endif
-
+    @if(Auth::user()->role == "admin")
     <a href="{{ route('courses.index') }}" class="back-button">Back to Courses</a>
+    @else
+    <a href="{{ route('cours.index') }}" class="back-button">Back to Courses</a>
+    @endif
 </div>
 @endsection

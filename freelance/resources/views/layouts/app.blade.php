@@ -283,8 +283,9 @@
             </div>
 
             <ul class="sidebar-menu">
+                @if(Auth::user()->role != 'admin')
                 <a href="{{ route('projects.index') }}">
-                <li class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
+                <li class="{{ request()->routeIs('projects.*') ? 'active' : '' }}">
                     <i class="fas fa-project-diagram"></i> <span>Projets</span>
                 </li>
                 </a>
@@ -303,6 +304,23 @@
                     <i class="fas fa-envelope"></i> <span>Messages</span>
                 </li>
                 </a>
+                @else
+                <a href="{{ route('users.index') }}">
+                <li class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
+                    <i class="fas fa-project-diagram"></i> <span>gestion users</span>
+                </li>
+                </a>
+                <a href="{{ route('posts.index') }}">
+                <li class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">
+                    <i class="fas fa-file-alt"></i> <span>gestion Posts</span>
+                </li>
+                </a>
+                <a href="{{ route('cours.index') }}">
+                <li class="{{ request()->routeIs('cours.*') ? 'active' : '' }}">
+                    <i class="fas fa-book"></i> <span>gestion Cours</span>
+                </li>
+                </a>
+                @endif
                 <a href="{{ route('login.logout') }}">
                 <li class="{{ request()->routeIs('messages.*') ? 'active' : '' }}">
                      <span>Log out</span>

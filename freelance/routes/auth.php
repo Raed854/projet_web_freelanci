@@ -68,5 +68,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/chats/{chatId}/messages', [MessageController::class, 'store']); // Store a new message
     Route::get('/messages/{message}', [MessageController::class, 'show']); // Show a specific message
     Route::put('/messages/{message}', [MessageController::class, 'update']); // Update a message
-    Route::delete('/messages/{message}', [MessageController::class, 'destroy']); // Delete a message
+    Route::delete('/messages/{message}', [MessageController::class, 'destroy']);
+    Route::put('/messages/{id}', [MessageController::class, 'update']);
+    Route::delete('/messages/{id}', [MessageController::class, 'destroy']);
+ // Delete a message
 });

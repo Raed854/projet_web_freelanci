@@ -23,6 +23,7 @@ class MessageController extends Controller
                     'sender_id' => $message->sender_id,
                     'text' => $message->contenu,
                     'created_at' => $message->created_at,
+                    'id' => $message->id,
                 ];
             })
         ]);
@@ -73,30 +74,29 @@ class MessageController extends Controller
     /**
      * Update the specified message in storage.
      */
-    public function update(Request $request, Message $message)
-    {
-        $request->validate([
-            'text' => 'required|string',
-        ]);
-
-        $message->text = $request->text;
-        $message->save();
-
-        return response()->json([
-            'message' => 'Message updated successfully',
-            'data' => $message
-        ]);
+    public function update(Request $request, $id)
+{
+    $message = Message::findOrFail($id);
+    if ($message->sender_id !== auth()->id()) {
+        return response()->json(['error' => 'Unauthorized'], 403);
     }
 
-    /**
-     * Remove the specified message from storage.
-     */
-    public function destroy(Message $message)
-    {
-        $message->delete();
+    $message->contenu = $request->input('text');
+    $message->save();
 
-        return response()->json([
-            'message' => 'Message deleted successfully'
-        ]);
+    return response()->json(['message' => 'Message updated']);
+}
+
+public function destroy($id)
+{
+    $message = Message::findOrFail($id);
+    if ($message->sender_id !== auth()->id()) {
+        return response()->json(['error' => 'Unauthorized'], 403);
     }
+
+    $message->delete();
+
+    return response()->json(['message' => 'Message deleted']);
+}
+
 }
