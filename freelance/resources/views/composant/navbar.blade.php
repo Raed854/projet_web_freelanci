@@ -12,7 +12,7 @@
         <!-- Logo Freela-connect -->
        
        
-            <span>Freela-connect</span>
+            <span>E-patient</span>
        
     </div>
 

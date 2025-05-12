@@ -32,17 +32,25 @@
                         <td>
                             <span class="role-badge">{{ $user->role }}</span>
                         </td>
-                        <td>
-                            <div class="action-buttons">
-                               
-                                <a href="{{ route('users.edit', $user) }}" class="btn btn-warning">Edit</a>
-                                <form action="{{ route('users.destroy', $user) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            </div>
-                        </td>
+                       <td>
+                        <div class="action-buttons">
+                            <a href="{{ route('users.edit', $user) }}" class="btn btn-warning">Edit</a>
+                            
+                            <form action="{{ route('users.toggleStatus', $user->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn {{ $user->is_active ? 'btn-secondary' : 'btn-success' }}">
+                                    {{ $user->is_active ? 'Deactivate' : 'Activate' }}
+                                </button>
+                            </form>
+
+                            <form action="{{ route('users.destroy', $user) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </td>
                     </tr>
                 @endforeach
             </tbody>

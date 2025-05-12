@@ -34,6 +34,7 @@
             display: flex;
             flex: 1;
             overflow: hidden;
+            padding-top:65px;
         }
 
         /* Improved Sidebar */
@@ -200,7 +201,8 @@
         .navbar {
             background-color: rgb(31, 41, 55);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            padding: 10px 20px;
+            padding: 10px 10px;
+            height: 50px;
         }
 
         .navbar-left span {
@@ -261,7 +263,7 @@
         <button class="menu-toggle" id="menuToggle" style="display: none;">
             <i class="fas fa-bars"></i>
         </button>
-        <span>Freela-connect</span>
+        <span>E-patient</span>
     </div>
 
     <!-- Center section of navbar -->
@@ -284,25 +286,16 @@
 
             <ul class="sidebar-menu">
                 @if(Auth::user()->role != 'admin')
-                <a href="{{ route('projects.index') }}">
-                <li class="{{ request()->routeIs('projects.*') ? 'active' : '' }}">
-                    <i class="fas fa-project-diagram"></i> <span>Projets</span>
+                <a href="#">
+                <li class="">
+                    <i class="fas fa-project-diagram"></i> <span>dossier medical</span>
                 </li>
                 </a>
-                <a href="{{ route('post.show') }}">
-                <li class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">
-                    <i class="fas fa-file-alt"></i> <span>Posts</span>
+                <a href="#">
+                <li class="">
+                    <i class="fas fa-file-alt"></i> <span>rendez vous</span>
                 </li>
                 </a>
-                <a href="{{ route('cours.index') }}">
-                <li class="{{ request()->routeIs('courses.*') ? 'active' : '' }}">
-                    <i class="fas fa-book"></i> <span>Cours</span>
-                </li>
-                </a>
-                <a href="{{ route('message.index') }}">
-                <li class="{{ request()->routeIs('messages.*') ? 'active' : '' }}">
-                    <i class="fas fa-envelope"></i> <span>Messages</span>
-                </li>
                 </a>
                 @else
                 <a href="{{ route('users.index') }}">
@@ -310,19 +303,9 @@
                     <i class="fas fa-project-diagram"></i> <span>gestion users</span>
                 </li>
                 </a>
-                <a href="{{ route('posts.index') }}">
-                <li class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">
-                    <i class="fas fa-file-alt"></i> <span>gestion Posts</span>
-                </li>
-                </a>
-                <a href="{{ route('courses.index') }}">
-                <li class="{{ request()->routeIs('cours.*') ? 'active' : '' }}">
-                    <i class="fas fa-book"></i> <span>gestion Cours</span>
-                </li>
-                </a>
                 @endif
                 <a href="{{ route('login.logout') }}">
-                <li class="{{ request()->routeIs('messages.*') ? 'active' : '' }}">
+                <li class="">
                      <span>Log out</span>
                 </li>
                 </a>

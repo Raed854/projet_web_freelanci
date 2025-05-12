@@ -41,7 +41,7 @@ class UserController extends Controller
             'prenom' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
-            'role' => 'required|string|in:client,freelancer,admin',
+            'role' => 'required|string|in:patient,docteur,admin',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], [
             'email.unique' => 'This email is already taken.',
@@ -82,4 +82,12 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
+    public function toggleStatus(User $user)
+{
+    $user->active = !$user->active;
+    $user->save();
+
+    return redirect()->back()->with('status', 'User status updated successfully.');
+}
+
 }

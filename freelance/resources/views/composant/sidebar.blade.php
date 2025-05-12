@@ -30,27 +30,10 @@
                     <i class="fas fa-file-alt"></i> Posts
              
             </li>
-
-            <!-- Lien vers la gestion des cours -->
-            <li class="{{ request()->routeIs('courses.*') ? 'active' : '' }}">
-           
-                    <i class="fas fa-book"></i> Cours
-            
-            </li>
-            <li class="{{ request()->routeIs('courses.*') ? 'active' : '' }}">
-                
-                    <i class="fas fa-book"></i> Message
-              
-            </li>
-            <li class="{{ request()->routeIs('courses.*') ? 'active' : '' }}">
-                
-                    <i class="fas fa-book"></i> propositions
-              
-            </li>
         </ul>
         
         <div class="sidebar-footer">
-            <span>&copy; {{ date('Y') }} Votre Nom</span>
+            <span>&copy; {{ date('Y') }} Aziz ben saad</span>
         </div>
     </div>
 

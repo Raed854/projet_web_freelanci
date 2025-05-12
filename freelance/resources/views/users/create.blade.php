@@ -46,10 +46,10 @@
         <div class="form-group">
             <label>I am a:</label>
             <div class="role-toggle">
-                <input type="radio" name="role" id="role-client" value="client" checked>
-                <label for="role-client">Client</label>
-                <input type="radio" name="role" id="role-freelancer" value="freelancer">
-                <label for="role-freelancer">Freelancer</label>
+                <input type="radio" name="role" id="role-client" value="patient" checked>
+                <label for="role-client">patient</label>
+                <input type="radio" name="role" id="role-freelancer" value="docteur">
+                <label for="role-freelancer">docteur</label>
             </div>
         </div>
         

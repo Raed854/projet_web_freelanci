@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('prenom');
             $table->string('photo')->nullable();
             $table->string('role');
+            $table->boolean('active');
         });
     }
 

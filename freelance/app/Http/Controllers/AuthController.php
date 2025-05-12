@@ -16,7 +16,7 @@ class AuthController extends Controller
             'prenom' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|string|in:client,freelancer,admin',
+            'role' => 'required|string|in:patient,docteur,admin',
         ], [
             'nom.required' => 'The nom field is required.',
             'prenom.required' => 'The prenom field is required.',
@@ -24,7 +24,7 @@ class AuthController extends Controller
             'email.unique' => 'This email is already taken.',
             'password.required' => 'The password field is required.',
             'password.confirmed' => 'The password confirmation does not match.',
-            'role.in' => 'The role must be either client or freelancer.',
+            'role.in' => 'The role must be either patient or doctor.',
         ]);
 
         if ($request->hasFile('photo')) {
@@ -48,31 +48,41 @@ class AuthController extends Controller
             'photo' => $photoPath,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect('/');
     }
 
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+public function login(Request $request)
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            $user = Auth::user();
-            session(['user_id' => $user->id]);
-            if($user->role!='admin'){
-            return redirect()->intended('/post')->with('success', 'You are logged in!');
-            }else{
-            return redirect()->intended('/users')->with('success', 'You are logged in!');
-            }
-        }
+    // First check if user exists and is active
+    $user = User::where('email', $credentials['email'])->first();
 
+    if (!$user || !$user->active) {
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Your account is deactivated. Please contact support.',
         ])->onlyInput('email');
     }
+
+    // Proceed with authentication if user is active
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
+        session(['user_id' => $user->id]);
+
+        if ($user->role != 'admin') {
+            return redirect()->intended('/loggedin')->with('success', 'You are logged in!');
+        } else {
+            return redirect()->intended('/users')->with('success', 'You are logged in!');
+        }
+    }
+
+    return back()->withErrors([
+        'email' => 'The provided credentials do not match our records.',
+    ])->onlyInput('email');
+}
 
     public function logout(Request $request)
     {

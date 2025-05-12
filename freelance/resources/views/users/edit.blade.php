@@ -53,8 +53,8 @@
 
         <div class="form-group">
             <select name="role" id="role" class="form-control @error('role') is-invalid @enderror" required>
-                <option value="client" {{ $user->role == 'client' ? 'selected' : '' }}>Client</option>
-                <option value="freelancer" {{ $user->role == 'freelancer' ? 'selected' : '' }}>Freelancer</option>
+                <option value="docteur" {{ $user->role == 'docteur' ? 'selected' : '' }}>docteur</option>
+                <option value="patient" {{ $user->role == 'patient' ? 'selected' : '' }}>patient</option>
                 <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
             </select>
             <label for="role">Role</label>
